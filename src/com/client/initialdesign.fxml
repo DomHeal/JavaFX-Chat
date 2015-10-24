@@ -10,8 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-
-<BorderPane prefHeight="252.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Controller">
+<BorderPane prefHeight="252.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
@@ -42,21 +41,24 @@
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="103.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="210.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="74.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="103.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="126.0" minHeight="12.0" prefHeight="29.0" />
-            <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="44.0" valignment="CENTER" />
+            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="126.0" minHeight="12.0" prefHeight="28.0" />
+            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="43.0" valignment="CENTER" />
             <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="31.0" />
          </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Connect" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Hostname: " textAlignment="CENTER" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Port: " GridPane.rowIndex="2" />
-            <TextField prefHeight="13.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonAction" text="Connect" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Hostname: " textAlignment="CENTER" GridPane.rowIndex="2" />
+            <TextField fx:id="hostnameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Port: " GridPane.rowIndex="3" />
+            <TextField fx:id="portTextfield" prefHeight="13.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Username: " GridPane.rowIndex="1" />
+            <TextField fx:id="usernameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>
