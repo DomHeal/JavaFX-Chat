@@ -2,15 +2,17 @@ package com.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -20,22 +22,27 @@ public class Controller implements Initializable {
     @FXML private TextField usernameTextfield;
     private ServerSocket server;
     private Socket socket;
+    public BufferedReader in;
+    public PrintWriter out;
+    @FXML private TextArea messageBox;
+    @FXML private TextArea chatFlow;
 
-
-    public void loginButtonAction(){
+    public void loginButtonAction() throws IOException {
 
         String hostname = hostnameTextfield.getText().toString();
         int port = Integer.parseInt(portTextfield.getText().toString());
         String username = usernameTextfield.getText().toString();
 
-        try {
-            socket = new Socket(hostname, port);
-            new MainInterface();
+        Stage stage = (Stage) hostnameTextfield.getScene().getWindow();
+        new MainInterface(stage);
+        new Listener(socket, hostname, port, username).start();
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public void sendButtonAction(){
+        String msg = messageBox.getText().toString();
+        chatFlow.appendText("hello" + "\n");
+        Listener.send(msg);
+        messageBox.setText("");
     }
 
     @FXML
@@ -48,5 +55,59 @@ public class Controller implements Initializable {
         imageView.setImage(image);
     }
 }
+
+class Listener extends Thread {
+
+    private Socket socket;
+    public String hostname;
+        public int port;
+        public String username;
+        BufferedReader in;
+        static PrintWriter out;
+
+
+        public Listener(Socket socket, String hostname, int port, String username) {
+            this.socket = socket;
+            this.hostname = hostname;
+        this.port = port;
+        this.username = username;
+    }
+
+    public void run() {
+        try {
+            socket = new Socket(hostname, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
+
+        try {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Sockets in and out ready!");
+
+        while (true) {
+            String line = null;
+            try {
+                line = in.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (line != null) {
+                    System.out.println(line);
+                    //messageBox.append(line + "\n");
+                }
+            }
+        }
+
+    public static void send(String msg) {
+        out.print(msg);
+    }
+}
+
+
 
 

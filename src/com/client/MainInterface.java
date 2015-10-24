@@ -6,20 +6,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Created by Dominic on 24-Oct-15.
  */
-public class MainInterface extends Application{
+public class MainInterface{
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
+    MainInterface(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("maindesign.fxml"));
-        primaryStage.setTitle("Socket Chat : Client version 0.1");
-        Scene mainScene = new Scene(root, 1024, 720);
+        Scene mainScene = new Scene(root, 600, 400);
         mainScene.setRoot(root);
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-        primaryStage.setResizable(false);
-
+        stage.setScene(mainScene);
     }
+
+
 }
