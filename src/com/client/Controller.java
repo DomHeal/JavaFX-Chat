@@ -12,35 +12,41 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    @FXML private TextField hostnameTextfield;
-    @FXML private TextField portTextfield;
-    @FXML private TextField usernameTextfield;
-    private ServerSocket server;
-    private Socket socket;
+    @FXML
+    private TextField hostnameTextfield;
+    @FXML
+    private TextField portTextfield;
+    @FXML
+    private TextField usernameTextfield;
+    @FXML
+    private TextArea messageBox;
+    @FXML
+    private TextArea chatFlow;
+
+    private static String username;
     public BufferedReader in;
-    public PrintWriter out;
-    @FXML private TextArea messageBox;
-    @FXML private TextArea chatFlow;
 
     public void loginButtonAction() throws IOException {
 
-        String hostname = hostnameTextfield.getText().toString();
-        int port = Integer.parseInt(portTextfield.getText().toString());
-        String username = usernameTextfield.getText().toString();
+        String hostname = hostnameTextfield.getText();
+        int port = Integer.parseInt(portTextfield.getText());
+        username = usernameTextfield.getText();
 
         Stage stage = (Stage) hostnameTextfield.getScene().getWindow();
         new MainInterface(stage);
-        new Listener(socket, hostname, port, username).start();
+        new Listener(hostname, port, username).start();
     }
 
-    public void sendButtonAction(){
-        String msg = messageBox.getText().toString();
-        chatFlow.appendText("hello" + "\n");
+    public void sendButtonAction() {
+        String msg = messageBox.getText();
+        if (chatFlow == null){
+            System.out.println("null");
+        }
+        addToChat(msg + "\n");
         Listener.send(msg);
         messageBox.setText("");
     }
@@ -54,21 +60,24 @@ public class Controller implements Initializable {
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }
+
+    public void addToChat(String msg) {
+        chatFlow.appendText(msg);
+    }
 }
 
 class Listener extends Thread {
 
     private Socket socket;
     public String hostname;
-        public int port;
-        public String username;
-        BufferedReader in;
-        static PrintWriter out;
+    public int port;
+    public String username;
+    BufferedReader in;
+    static PrintWriter out;
 
 
-        public Listener(Socket socket, String hostname, int port, String username) {
-            this.socket = socket;
-            this.hostname = hostname;
+    public Listener(String hostname, int port, String username) {
+        this.hostname = hostname;
         this.port = port;
         this.username = username;
     }
@@ -97,14 +106,14 @@ class Listener extends Thread {
                 e.printStackTrace();
             }
             if (line != null) {
-                    System.out.println(line);
-                    //messageBox.append(line + "\n");
-                }
+                System.out.println(line);
+                //addToChat(line);
             }
         }
+    }
 
     public static void send(String msg) {
-        out.print(msg);
+        out.println(msg);
     }
 }
 
