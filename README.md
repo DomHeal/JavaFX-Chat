@@ -7,3 +7,8 @@ Currently in Development.
 <img src="http://i.imgur.com/h3W5LDy.png"/>
 <img src="http://i.imgur.com/0AEBbmX.png"/>
 </p>
+
+<h3>Stage two: Design Update</h3>
+<p align="center">
+<img scr="http://i.imgur.com/0d46U4o.png"/>
+</p>
