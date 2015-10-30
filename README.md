@@ -10,5 +10,5 @@ Currently in Development.
 
 <h3>Stage two: Design Update</h3>
 <p align="center">
-<img src="http://i.imgur.com/7z80qMU.png"/>
+<img src="http://i.imgur.com/Ko17iH0.png"/>
 </p>
