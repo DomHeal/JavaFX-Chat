@@ -1,6 +1,7 @@
 package com.client;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +21,8 @@ public class Main extends Application {
         primaryStage.setScene(mainScene);
         primaryStage.show();
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
+
 
 
     }
