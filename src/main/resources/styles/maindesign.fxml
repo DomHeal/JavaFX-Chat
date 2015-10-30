@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <BorderPane>
+               <center>
+                  <TextArea fx:id="chatFlow" editable="false" prefHeight="469.0" prefWidth="803.0" wrapText="true">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </TextArea>
+               </center>
+               <bottom>
+                  <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="664.0" promptText="Enter Message..." scaleShape="false" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="SansSerif Regular" size="14.0" />
+                           </font>
+                        </TextArea>
+                        <Button fx:id="buttonSend" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="138.0" scaleShape="false" text="Send" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="49.0" prefWidth="217.0">
+               <children>
+                  <Label prefHeight="49.0" prefWidth="218.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Pane>
+            <ListView prefHeight="474.0" prefWidth="217.0" />
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1020.0" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
+         <center>
+            <ImageView fitHeight="79.0" fitWidth="837.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../images/fxchat.png" />
+               </image>
+            </ImageView>
+         </center>
+         <right>
+            <HBox prefHeight="24.0" prefWidth="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/settings.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="30.0" top="30.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close_normal.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="30.0" top="30.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </HBox>
+         </right>
+         <left>
+            <HBox prefHeight="80.0" prefWidth="247.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/profile_circle.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Dominic Heal" textFill="#fc6747">
+                     <font>
+                        <Font name="Candara" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children></HBox>
+         </left>
+      </BorderPane>
+   </top>
+</BorderPane>
