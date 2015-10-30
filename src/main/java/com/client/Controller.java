@@ -1,20 +1,15 @@
 package com.client;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class Controller implements Initializable {
+public class Controller {
 
     @FXML
     private TextField hostnameTextfield;
@@ -42,6 +37,7 @@ public class Controller implements Initializable {
         stage.setHeight(600);
         new MainInterface(stage);
         new Listener(hostname, port, username).start();
+
     }
 
     public void sendButtonAction() {
@@ -50,23 +46,17 @@ public class Controller implements Initializable {
         if (chatFlow == null){
             System.out.println("null");
         }
-        addToChat(msg + "\n");
+        addToChat(username + ": " + msg + "\n");
         Listener.send(msg);
 
     }
 
-    @FXML
-    private ImageView imageView;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //File file = new File("src/socketchat.png");
-        //Image image = new Image(file.toURI().toString());
-        //imageView.setImage(image);
-    }
-
     public void addToChat(String msg) {
-        chatFlow.appendText(msg);
+        if (chatFlow != null){
+            chatFlow.appendText(msg);
+        }
+
+        System.out.println("Failed add to chat");
     }
 }
 
@@ -78,7 +68,7 @@ class Listener extends Thread {
     public String username;
     BufferedReader in;
     static PrintWriter out;
-
+    public TextArea chat;
 
     public Listener(String hostname, int port, String username) {
         this.hostname = hostname;
@@ -102,6 +92,7 @@ class Listener extends Thread {
         }
         System.out.println("Sockets in and out ready!");
 
+        out.println(username);
         while (true) {
             String line = null;
             try {
@@ -111,7 +102,6 @@ class Listener extends Thread {
             }
             if (line != null) {
                 System.out.println(line);
-                //addToChat(line);
             }
         }
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -28,7 +29,7 @@
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
                         </TextArea>
-                        <Button fx:id="buttonSend" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="138.0" scaleShape="false" text="Send" textAlignment="CENTER" />
+                        <Button fx:id="buttonSend" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="138.0" scaleShape="false" text="Send" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </bottom>
@@ -41,27 +42,33 @@
          <children>
             <Pane prefHeight="49.0" prefWidth="217.0">
                <children>
-                  <Label prefHeight="49.0" prefWidth="218.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
+                  <Label prefHeight="50.0" prefWidth="218.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
                      <font>
                         <Font name="SansSerif Regular" size="14.0" />
                      </font>
                      <padding>
                         <Insets left="10.0" />
                      </padding>
+                     <opaqueInsets>
+                        <Insets bottom="10.0" />
+                     </opaqueInsets>
                   </Label>
                </children>
             </Pane>
-            <ListView prefHeight="474.0" prefWidth="217.0" />
+            <ListView focusTraversable="false" prefHeight="461.0" prefWidth="217.0" />
          </children>
       </VBox>
    </left>
    <top>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1020.0" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
          <center>
-            <ImageView fitHeight="79.0" fitWidth="837.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../images/fxchat.png" />
                </image>
+               <BorderPane.margin>
+                  <Insets right="100.0" />
+               </BorderPane.margin>
             </ImageView>
          </center>
          <right>
@@ -93,7 +100,7 @@
             </HBox>
          </right>
          <left>
-            <HBox prefHeight="80.0" prefWidth="247.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="80.0" prefWidth="243.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -103,14 +110,26 @@
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label text="Dominic Heal" textFill="#fc6747">
-                     <font>
-                        <Font name="Candara" size="14.0" />
-                     </font>
+                  <VBox>
                      <HBox.margin>
                         <Insets left="10.0" top="30.0" />
                      </HBox.margin>
-                  </Label>
+                     <children>
+                        <Label text="Dominic Heal" textFill="#fa6648">
+                           <font>
+                              <Font name="HelveticaNeue Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="awaiting connection..." textFill="WHITE">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
                </children></HBox>
          </left>
       </BorderPane>

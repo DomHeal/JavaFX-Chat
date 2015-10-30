@@ -14,7 +14,7 @@ public class MainInterface{
 
     MainInterface(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("styles/maindesign.fxml"));
-        Scene mainScene = new Scene(root, 600, 400);
+        Scene mainScene = new Scene(root, 1020, 620);
         mainScene.setRoot(root);
         stage.setScene(mainScene);
     }

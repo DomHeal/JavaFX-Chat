@@ -54,9 +54,9 @@
          <children>
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonAction" text="Connect" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Hostname: " textAlignment="CENTER" GridPane.rowIndex="2" />
-            <TextField fx:id="hostnameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="hostnameTextfield" text="localhost" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Port: " GridPane.rowIndex="3" />
-            <TextField fx:id="portTextfield" prefHeight="13.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="portTextfield" prefHeight="13.0" prefWidth="149.0" text="9001" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Username: " GridPane.rowIndex="1" />
             <TextField fx:id="usernameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>

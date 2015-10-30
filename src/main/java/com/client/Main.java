@@ -7,15 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.URL;
-
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("styles/initialdesign.fxml"));
-        primaryStage.setTitle("Socket Chat : Client version 0.1");
-        //primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png"));
+        primaryStage.setTitle("Socket Chat : Client version 0.2");
+        primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
 
         Scene mainScene = new Scene(root, 390, 252);
 
@@ -23,6 +20,7 @@ public class Main extends Application {
         primaryStage.setScene(mainScene);
         primaryStage.show();
         primaryStage.setResizable(false);
+
 
     }
 
