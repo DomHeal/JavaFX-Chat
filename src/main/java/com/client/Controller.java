@@ -1,20 +1,26 @@
 package com.client;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.*;
-import java.net.Socket;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 public class Controller {
-
+    private static Controller instance;
+    public static Controller getInstance() {
+        if(instance == null)
+            instance = new Controller();
+        return instance;
+    }
     @FXML
     private TextField hostnameTextfield;
     @FXML
@@ -29,12 +35,7 @@ public class Controller {
         return username;
     }
 
-    public static void setUsername(String username) {
-        Controller.username = username;
-    }
-
     public void loginButtonAction() throws IOException {
-
         String hostname = hostnameTextfield.getText();
         int port = Integer.parseInt(portTextfield.getText());
         username = usernameTextfield.getText();
@@ -43,10 +44,39 @@ public class Controller {
         stage.setResizable(true);
         stage.setMinWidth(1020);
         stage.setHeight(600);
-        new MainInterface(stage, hostname, port, username);
+
+        FXMLLoader y = new FXMLLoader(getClass().getResource("/styles/maindesign.fxml"));
+        Parent window3 = (Pane) y.load();
+
+        Scene  newScene = new Scene(window3);
+
+        stage.setScene(newScene);
+
+        Controller con = y.<Controller>getController();
+        System.out.println("Controller collection: " + con.toString());
+
+        Thread x = new Thread(new Listener(hostname, port, username, con));
+        x.start();
     }
 
-    
+    @FXML
+    private TextArea messageBox;
+    @FXML
+    public TextArea chatFlow;
+
+    public void sendButtonAction() {
+        String msg = messageBox.getText();
+        messageBox.setText("");
+        Listener.send(msg);
+    }
+
+    public void addToChat(String msg) {
+        try {
+            chatFlow.appendText(msg + "\n");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 
 

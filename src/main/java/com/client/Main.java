@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("styles/initialdesign.fxml"));
-        primaryStage.setTitle("Socket Chat : Client version 0.2");
+        primaryStage.setTitle("Socket Chat : Client version 0.3");
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
 
         Scene mainScene = new Scene(root, 390, 252);
@@ -22,9 +22,6 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-
-
-
     }
 
 

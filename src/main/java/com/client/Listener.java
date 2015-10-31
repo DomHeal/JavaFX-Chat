@@ -1,5 +1,6 @@
 package com.client;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 
@@ -12,7 +13,7 @@ import java.net.Socket;
 /**
  * Created by Dominic on 30-Oct-15.
  */
-class Listener extends Thread {
+class Listener implements Runnable{
 
     private Socket socket;
     public String hostname;
@@ -21,13 +22,15 @@ class Listener extends Thread {
     BufferedReader in;
     static PrintWriter out;
     public TextArea chat;
-    Controller con;
+    public Controller controller;
 
-    public Listener(String hostname, int port, String username) {
+    public Listener(String hostname, int port, String username, Controller controller) {
         this.hostname = hostname;
         this.port = port;
         this.username = username;
-        this.con = con;
+        System.out.println("Before" + controller.toString());
+        //controller1 = controller;
+        this.controller = controller;
     }
 
     public void run() {
@@ -55,8 +58,11 @@ class Listener extends Thread {
                 e.printStackTrace();
             }
             if (line != null) {
-                System.out.println(line);
-                //con.addToChat(line);
+                    System.out.println(line);
+                    controller.addToChat(line);
+                    System.out.println("Listening Instance:");
+                    System.out.println(controller.toString());
+
 
             }
         }

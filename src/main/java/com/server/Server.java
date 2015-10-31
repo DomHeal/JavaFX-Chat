@@ -1,16 +1,10 @@
 package com.server;
 
-/**
- * Created by Dominic on 24-Oct-15.
- */
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/*
- * The server that can be run both as a console application or a GUI
- */
 public class Server {
 
     private static final int PORT = 9001;
@@ -51,7 +45,7 @@ public class Server {
                     }
                     synchronized (names) {
                         if (!names.contains(name)) {
-                            out.println("Name Added: " + name);
+                            out.println("Welcome " + name + ", You have now joined the server! Enjoy chatting!");
                             names.add(name);
                             break;
                         }
@@ -65,9 +59,7 @@ public class Server {
                         return;
                     }
                     for (PrintWriter writer : writers) {
-                        writer.println("MESSAGE " + name + ": " + input);
-                        System.out.println(name + ": " +input);
-                        //writer.println("MESSAGE: " + input);
+                        writer.println(name + ": " + input);
                     }
                 }
             } catch (IOException e) {
