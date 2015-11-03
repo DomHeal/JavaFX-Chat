@@ -11,4 +11,18 @@ Currently in Development.
 <h3>Stage two: Design Update</h3>
 <p align="center">
 <img src="http://i.imgur.com/acxxSL1.png"/>
+<img src="http://i.imgur.com/oazkPK7.png"/>
 </p>
+
+<h3> To-Do </h3>
+<ul>
+  <li><strike>Multi-Client Support</strike></li>
+  <li><strike>Username Selection</strike></li>
+  <li><strike>MOTD on Connect</strike></li>
+  <li>Server GUI</li>
+  <li>Connected Userlist</li>
+  <li>Profile Picture (Presets / Upload)</li>
+  <li>Able to Set Status (Away / Busy / Online)</li>
+  <li>Voice Communication</li>
+  <li>Sounds & External CSS</li>
+</ul>
