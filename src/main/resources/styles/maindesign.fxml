@@ -8,8 +8,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.collections.FXCollections?>
+
 <BorderPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
@@ -68,7 +68,7 @@
                   </HBox>
                </children>
             </Pane>
-            <ListView fx:id="userList" focusTraversable="false" prefHeight="466.0" prefWidth="217.0" >
+            <ListView fx:id="userList" focusTraversable="false" prefHeight="474.0" prefWidth="217.0" stylesheets="@ListViewStyle.css">
             </ListView>
          </children>
       </VBox>

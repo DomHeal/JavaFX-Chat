@@ -5,13 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import java.io.*;
 
 public class Controller{
@@ -93,6 +97,23 @@ public class Controller{
         Platform.runLater(() -> {
             items.add(userListnames);
             userList.setItems(items);
+            userList.setCellFactory(list -> new CellRenderer()
+            );
         });
+    }
+}
+
+class CellRenderer extends ListCell<String> {
+
+    @Override
+    public void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+        if (item != null) {
+            ImageView imageView = new ImageView();
+            Image image = new Image(getClass().getClassLoader().getResource("images/blank.png").toString(),50,50,false,false);
+            setText(item);
+            imageView.setImage(image);
+            setGraphic(imageView);
+        }
     }
 }
