@@ -1,18 +1,12 @@
 package com.client;
 
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/**
- * Created by Dominic on 30-Oct-15.
- */
 class Listener implements Runnable{
 
     private Socket socket;
@@ -28,8 +22,6 @@ class Listener implements Runnable{
         this.hostname = hostname;
         this.port = port;
         this.username = username;
-        System.out.println("Before" + controller.toString());
-        //controller1 = controller;
         this.controller = controller;
     }
 
@@ -58,12 +50,11 @@ class Listener implements Runnable{
                 e.printStackTrace();
             }
             if (line != null) {
-                    System.out.println(line);
+                if (line.startsWith("UserCount:")) {
+                    controller.setOnlineLabel(line.substring(10));
+                } else {
                     controller.addToChat(line);
-                    System.out.println("Listening Instance:");
-                    System.out.println(controller.toString());
-
-
+                }
             }
         }
     }

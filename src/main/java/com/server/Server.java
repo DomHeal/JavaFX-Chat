@@ -8,7 +8,7 @@ import java.util.*;
 public class Server {
 
     private static final int PORT = 9001;
-    private static HashSet<String> names = new HashSet<String>();
+    private static final HashSet<String> names = new HashSet<String>();
     private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 
     public static void main(String[] args) throws Exception {
@@ -34,8 +34,7 @@ public class Server {
 
         public void run() {
             try {
-                in = new BufferedReader(new InputStreamReader(
-                        socket.getInputStream()));
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
                 while (true) {
@@ -47,11 +46,19 @@ public class Server {
                         if (!names.contains(name)) {
                             out.println("Welcome " + name + ", You have now joined the server! Enjoy chatting!");
                             names.add(name);
+
+
                             break;
                         }
                     }
                 }
                 writers.add(out);
+
+                for (PrintWriter writer : writers) {
+                    writer.println("UserCount:" + names.size());
+                }
+                System.out.println(names.size());
+
 
                 while (true) {
                     String input = in.readLine();
@@ -72,6 +79,10 @@ public class Server {
                 if (out != null) {
                     writers.remove(out);
                 }
+                for (PrintWriter writer : writers) {
+                    writer.println("UserCount:" + names.size());
+                }
+                System.out.println(names.size());
                 try {
                     socket.close();
                 } catch (IOException e) {

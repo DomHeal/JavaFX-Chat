@@ -16,8 +16,8 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
 
         Scene mainScene = new Scene(root, 390, 252);
-
         mainScene.setRoot(root);
+
         primaryStage.setScene(mainScene);
         primaryStage.show();
         primaryStage.setResizable(false);

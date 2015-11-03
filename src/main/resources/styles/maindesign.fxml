@@ -42,20 +42,25 @@
          <children>
             <Pane prefHeight="49.0" prefWidth="217.0">
                <children>
-                  <Label prefHeight="50.0" prefWidth="218.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                     <opaqueInsets>
-                        <Insets bottom="10.0" />
-                     </opaqueInsets>
-                  </Label>
+                  <HBox prefHeight="50.0" prefWidth="217.0">
+                     <children>
+                        <Label prefHeight="50.0" prefWidth="218.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
+                           <font>
+                              <Font name="SansSerif Regular" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </Label>
+                        <Label fx:id="onlineCountLabel" prefHeight="17.0" prefWidth="123.0" text="Label" />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
-            <ListView focusTraversable="false" prefHeight="461.0" prefWidth="217.0" />
+            <ListView focusTraversable="false" prefHeight="466.0" prefWidth="217.0" />
          </children>
       </VBox>
    </left>
@@ -104,7 +109,7 @@
                <children>
                   <ImageView fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/profile_circle.png" />
+                        <Image url="@../images/blank.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -115,12 +120,12 @@
                         <Insets left="10.0" top="30.0" />
                      </HBox.margin>
                      <children>
-                        <Label text="Dominic Heal" textFill="#fa6648">
+                        <Label fx:id="usernameLabel" text="Dominic Heal" textFill="#fa6648">
                            <font>
                               <Font name="HelveticaNeue Medium" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="awaiting connection..." textFill="WHITE">
+                        <Label text="Connected!" textFill="WHITE">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -134,4 +139,7 @@
          </left>
       </BorderPane>
    </top>
+   <rotationAxis>
+      <Point3D />
+   </rotationAxis>
 </BorderPane>
