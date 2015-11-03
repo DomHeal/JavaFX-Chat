@@ -10,8 +10,7 @@ Currently in Development.
 
 <h3>Stage two: Design Update</h3>
 <p align="center">
-<img src="http://i.imgur.com/acxxSL1.png"/>
-<img src="http://i.imgur.com/oazkPK7.png"/>
+<img src="http://i.imgur.com/bQWcK6H.png"/>
 </p>
 
 <h3> To-Do </h3>
