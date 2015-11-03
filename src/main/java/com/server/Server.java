@@ -56,8 +56,11 @@ public class Server {
 
                 for (PrintWriter writer : writers) {
                     writer.println("UserCount:" + names.size());
+                    for(String singlename : names){
+                        System.out.println(singlename);
+                        writer.println("UserListAdd:" + singlename);
+                    }
                 }
-                System.out.println(names.size());
 
 
                 while (true) {

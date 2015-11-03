@@ -9,18 +9,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
 <BorderPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
          <children>
             <BorderPane>
-               <center>
-                  <TextArea fx:id="chatFlow" editable="false" prefHeight="469.0" prefWidth="803.0" wrapText="true">
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                  </TextArea>
-               </center>
                <bottom>
                   <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
                      <children>
@@ -33,6 +27,13 @@
                      </children>
                   </HBox>
                </bottom>
+               <top>
+                  <TextArea fx:id="chatFlow" editable="false" prefHeight="469.0" prefWidth="803.0" wrapText="true" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </TextArea>
+               </top>
             </BorderPane>
          </children>
       </VBox>
@@ -44,7 +45,7 @@
                <children>
                   <HBox prefHeight="50.0" prefWidth="217.0">
                      <children>
-                        <Label prefHeight="50.0" prefWidth="218.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
+                        <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
                            <font>
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
@@ -55,12 +56,20 @@
                               <Insets bottom="10.0" />
                            </opaqueInsets>
                         </Label>
-                        <Label fx:id="onlineCountLabel" prefHeight="17.0" prefWidth="123.0" text="Label" />
+                        <Label fx:id="onlineCountLabel" prefHeight="50.0" prefWidth="117.0" text="0" textFill="#fc6747">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="SansSerif Regular" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </children>
             </Pane>
-            <ListView focusTraversable="false" prefHeight="466.0" prefWidth="217.0" />
+            <ListView fx:id="userList" focusTraversable="false" prefHeight="466.0" prefWidth="217.0" >
+            </ListView>
          </children>
       </VBox>
    </left>

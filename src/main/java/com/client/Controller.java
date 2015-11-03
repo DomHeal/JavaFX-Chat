@@ -1,6 +1,8 @@
 package com.client;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +33,10 @@ public class Controller{
     private Label usernameLabel;
     @FXML
     private Label onlineCountLabel;
+    @FXML
+    private ListView userList;
+
+    ObservableList<String> items =FXCollections.observableArrayList ();
 
     public void loginButtonAction() throws IOException {
         String hostname = hostnameTextfield.getText();
@@ -46,10 +52,10 @@ public class Controller{
         Parent window3 = (Pane) y.load();
 
         Scene newScene = new Scene(window3);
-
-        stage.setScene(newScene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> Platform.exit());
+        stage.setScene(newScene);
+
         Controller con = y.<Controller>getController();
         con.setUsernameLabel(username);
 
@@ -78,7 +84,15 @@ public class Controller{
         this.usernameLabel.setText(username);
     }
 
-    public void setOnlineLabel(String line) {
-        Platform.runLater(() -> onlineCountLabel.setText(line));
+    public void setOnlineLabel(String usercount) {
+        Platform.runLater(() -> onlineCountLabel.setText(usercount));
+    }
+
+    public void setUserList(String userListnames) {
+
+        Platform.runLater(() -> {
+            items.add(userListnames);
+            userList.setItems(items);
+        });
     }
 }

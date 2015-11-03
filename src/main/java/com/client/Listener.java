@@ -52,7 +52,11 @@ class Listener implements Runnable{
             if (line != null) {
                 if (line.startsWith("UserCount:")) {
                     controller.setOnlineLabel(line.substring(10));
-                } else {
+                }
+                else if (line.startsWith("UserListAdd:")){
+                    controller.setUserList(line.substring(12));
+                }
+                else {
                     controller.addToChat(line);
                 }
             }
