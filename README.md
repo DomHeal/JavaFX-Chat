@@ -19,3 +19,9 @@ Currently in Development.
   <li>Voice Communication</li>
   <li>Sounds & External CSS</li>
 </ul>
+
+<h3>Known Issues </h3>
+<ul>
+  <li>Userlist Not Showing Correct amount of users</li>
+  <li>Can "Login" when server is not running </li>
+</ul>
