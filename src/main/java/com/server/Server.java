@@ -53,13 +53,16 @@ public class Server {
                     }
                 }
                 writers.add(out);
-
+                
+                String userList = "UserListAdd:";
+                for (String singlename : names) {
+                    userList.concat(singlename);
+                    userList.concat(",");
+                }
+                
                 for (PrintWriter writer : writers) {
                     writer.println("UserCount:" + names.size());
-                    for(String singlename : names){
-                        System.out.println(singlename);
-                        writer.println("UserListAdd:" + singlename);
-                    }
+                    writer.println("UserListAdd:" + userList);
                 }
 
 
