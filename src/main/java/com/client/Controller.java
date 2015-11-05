@@ -3,6 +3,7 @@ package com.client;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,8 +14,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import java.io.*;
 
@@ -57,7 +61,10 @@ public class Controller{
 
         Scene newScene = new Scene(window3);
         stage.setResizable(false);
-        stage.setOnCloseRequest(e -> Platform.exit());
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
         stage.setScene(newScene);
 
         Controller con = y.<Controller>getController();
@@ -112,5 +119,11 @@ public class Controller{
             System.out.println("cleared lists");
         });
         }
+
+    public void sendMethod(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            sendButtonAction();
+        }
     }
+}
 

@@ -18,12 +18,12 @@
                <bottom>
                   <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="664.0" promptText="Enter Message..." scaleShape="false" HBox.hgrow="NEVER">
+                        <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="24.0" prefWidth="664.0" promptText="Enter Message..." scaleShape="false" HBox.hgrow="NEVER">
                            <font>
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
                         </TextArea>
-                        <Button fx:id="buttonSend" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="138.0" scaleShape="false" text="Send" textAlignment="CENTER" />
+                        <Button fx:id="buttonSend" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="138.0" scaleShape="false" text="Send" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </bottom>

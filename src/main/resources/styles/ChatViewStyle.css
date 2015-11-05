@@ -1,0 +1,10 @@
+.text-area .content{
+    -fx-background-color: #f5f5f5;
+}
+
+.text-area {
+    -fx-font-family: sans-serif;
+}
+.styled-text-area {
+    -fx-background-color: yellow;
+}

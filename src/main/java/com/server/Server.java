@@ -109,7 +109,5 @@ public class Server {
                 writer.println("ClearList:");
             }
         }
-        
-        
     }
 }
