@@ -56,6 +56,7 @@ public class Server {
                 
                 String userList = "UserListAdd:";
                 for (String singlename : names) {
+                    String joined = String.join(",", names); // "foo and bar and baz"
                     userList.concat(singlename);
                     userList.concat(",");
                 }
