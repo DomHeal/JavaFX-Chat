@@ -93,27 +93,24 @@ public class Controller{
     }
 
     public void setUserList(String userListnames) {
-
         Platform.runLater(() -> {
-            items.add(userListnames);
+            String[] userlist = userListnames.split(",");
+            for (String name : userlist) {
+                items.add(name);
+            }
             userList.setItems(items);
             userList.setCellFactory(list -> new CellRenderer()
             );
         });
     }
-}
 
-class CellRenderer extends ListCell<String> {
-
-    @Override
-    public void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
-        if (item != null) {
-            ImageView imageView = new ImageView();
-            Image image = new Image(getClass().getClassLoader().getResource("images/blank.png").toString(),50,50,false,false);
-            setText(item);
-            imageView.setImage(image);
-            setGraphic(imageView);
+    public void clearUserList() {
+        Platform.runLater(() -> {
+            userList.getItems().clear();
+            items.removeAll();
+            userList.getItems().removeAll();
+            System.out.println("cleared lists");
+        });
         }
     }
-}
+

@@ -28,6 +28,8 @@ public class Server {
         private Socket socket;
         private BufferedReader in;
         private PrintWriter out;
+        private static String userList;
+
         public Handler(Socket socket) {
             this.socket = socket;
         }
@@ -46,22 +48,17 @@ public class Server {
                         if (!names.contains(name)) {
                             out.println("Welcome " + name + ", You have now joined the server! Enjoy chatting!");
                             names.add(name);
-
-
                             break;
                         }
                     }
                 }
                 writers.add(out);
 
-                for (PrintWriter writer : writers) {
-                    writer.println("UserCount:" + names.size());
-                    for(String singlename : names){
-                        System.out.println(singlename);
-                        writer.println("UserListAdd:" + singlename);
-                    }
-                }
+                createUserList();
 
+                sendClearList();
+
+                sendUsersInformation();
 
                 while (true) {
                     String input = in.readLine();
@@ -92,5 +89,27 @@ public class Server {
                 }
             }
         }
+
+        private void createUserList() {
+            userList = "UserListAdd: ";
+            for (String singlename : names) {
+                userList += singlename + ",";
+            }
+        }
+
+        private void sendUsersInformation() {
+            for (PrintWriter writer : writers) {
+                writer.println("UserCount:" + names.size());
+                writer.println(userList);
+            }
+        }
+
+        private void sendClearList() {
+            for (PrintWriter writer : writers) {
+                writer.println("ClearList:");
+            }
+        }
+        
+        
     }
 }

@@ -1,3 +1,5 @@
 .list-cell {
     -fx-cell-size: 50 ;
+    -fx-animated: true;
+
 }

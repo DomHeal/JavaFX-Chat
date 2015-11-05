@@ -28,7 +28,7 @@
                   </HBox>
                </bottom>
                <top>
-                  <TextArea fx:id="chatFlow" editable="false" prefHeight="469.0" prefWidth="803.0" wrapText="true" BorderPane.alignment="CENTER">
+                  <TextArea fx:id="chatFlow" editable="false" prefHeight="469.0" prefWidth="803.0" stylesheets="@ChatViewStyle.css" wrapText="true" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="SansSerif Regular" size="14.0" />
                      </font>
