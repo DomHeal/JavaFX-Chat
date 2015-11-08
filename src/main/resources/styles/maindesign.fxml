@@ -99,7 +99,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="21.0" onKeyPressed="#closeApplication" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close_normal.png" />
                      </image>
@@ -116,7 +116,7 @@
          <left>
             <HBox prefHeight="80.0" prefWidth="243.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/blank.png" />
                      </image>

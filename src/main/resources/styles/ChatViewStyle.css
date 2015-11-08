@@ -1,10 +1,5 @@
 .text-area .content{
     -fx-background-color: #f5f5f5;
+    -fx-cell-size: 30;
 }
 
-.text-area {
-    -fx-font-family: sans-serif;
-}
-.styled-text-area {
-    -fx-background-color: yellow;
-}

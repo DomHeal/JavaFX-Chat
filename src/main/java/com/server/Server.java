@@ -9,6 +9,7 @@ public class Server {
 
     private static final int PORT = 9001;
     private static final HashSet<String> names = new HashSet<String>();
+    private static final ArrayList<String> images = new ArrayList<>();
     private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 
     public static void main(String[] args) throws Exception {
@@ -48,6 +49,7 @@ public class Server {
                         if (!names.contains(name)) {
                             out.println("Welcome " + name + ", You have now joined the server! Enjoy chatting!");
                             names.add(name);
+                            //images.add()
                             break;
                         }
                     }
@@ -82,7 +84,6 @@ public class Server {
                 for (PrintWriter writer : writers) {
                     writer.println("UserCount:" + names.size());
                 }
-                System.out.println(names.size());
                 try {
                     socket.close();
                 } catch (IOException e) {

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainLauncher extends Application {
     @Override
@@ -17,11 +18,12 @@ public class MainLauncher extends Application {
 
         Scene mainScene = new Scene(root, 390, 252);
         mainScene.setRoot(root);
-
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(mainScene);
         primaryStage.show();
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setOnCloseRequest(e -> Platform.exit());
+
     }
 
 

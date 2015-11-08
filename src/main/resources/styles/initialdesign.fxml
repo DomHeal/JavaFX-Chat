@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 
 <BorderPane prefHeight="252.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
    <top>
@@ -43,13 +43,16 @@
             <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="31.0" />
          </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonAction" text="Connect" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Hostname: " textAlignment="CENTER" GridPane.rowIndex="2" />
-            <TextField fx:id="hostnameTextfield" text="localhost" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Port: " GridPane.rowIndex="3" />
-            <TextField fx:id="portTextfield" prefHeight="13.0" prefWidth="149.0" text="9001" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Username: " GridPane.rowIndex="1" />
-            <TextField fx:id="usernameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonAction" text="Connect" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Hostname: " textAlignment="CENTER" GridPane.rowIndex="3" />
+            <TextField fx:id="hostnameTextfield" text="localhost" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Port: " GridPane.rowIndex="4" />
+            <TextField fx:id="portTextfield" prefHeight="13.0" prefWidth="149.0" text="9001" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Username: " />
+            <TextField fx:id="usernameTextfield" GridPane.columnIndex="1" />
+            <Label text="Server Details" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Profile Img URL:" GridPane.rowIndex="1" />
+            <TextField fx:id="imgURLTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>
