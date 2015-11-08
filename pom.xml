@@ -14,6 +14,11 @@
             <artifactId>richtextfx</artifactId>
             <version>0.6.10</version>
         </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>[0.4, 0.5)</version>
+        </dependency>
     </dependencies>
 
     

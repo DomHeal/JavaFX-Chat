@@ -22,6 +22,7 @@ class CellRenderer extends ListCell<String> {
             setText(item);
             imageView.setImage(image);
             setGraphic(imageView);
+
         }
     }
 }

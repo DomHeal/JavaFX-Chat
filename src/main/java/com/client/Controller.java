@@ -1,11 +1,15 @@
 package com.client;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,14 +24,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 import javafx.util.Duration;
+import net.coobird.thumbnailator.Thumbnails;
 import tray.animations.AnimationType;
 import tray.notification.TrayNotification;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
+import java.util.Collections;
+import java.util.ResourceBundle;
 
-public class Controller{
+public class Controller implements Initializable{
 
     @FXML
     private TextField hostnameTextfield;
@@ -48,9 +57,9 @@ public class Controller{
     @FXML
     private ListView userList;
     @FXML
-    private TextField imgURLTextfield;
-    @FXML
     private ImageView userImageView;
+    @FXML ImageView imageView;
+    @FXML ChoiceBox choiceBox;
 
     ObservableList<String> items = FXCollections.observableArrayList ();
 
@@ -80,8 +89,7 @@ public class Controller{
         stage.setScene(newScene);
 
         con.setUsernameLabel(username);
-        con.setImageLabel(imgURLTextfield.getText());
-
+        //con.setImageLabel(imgURLTextfield.getText());
 
     }
 
@@ -106,8 +114,8 @@ public class Controller{
         this.usernameLabel.setText(username);
     }
 
-    public void setImageLabel(String imageURL){
-        this.userImageView.setImage(new Image(imageURL,50,50,false,false));
+    public void setImageLabel(String imageURL) throws IOException {
+        this.userImageView.setImage(new Image(imageURL));
     }
 
     public void setOnlineLabel(String usercount) {
@@ -117,9 +125,7 @@ public class Controller{
     public void setUserList(String userListnames) {
         Platform.runLater(() -> {
             String[] userlist = userListnames.split(",");
-            for (String name : userlist) {
-                items.add(name);
-            }
+            Collections.addAll(items, userlist);
             userList.setItems(items);
             userList.setCellFactory(list -> new CellRenderer()
             );
@@ -156,6 +162,45 @@ public class Controller{
 
     public void closeApplication(){
         System.exit(1);
+    }
+
+    @Override
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+
+        if (choiceBox != null) {
+            choiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> selected, String oldFruit, String newFruit) {
+                    if (oldFruit != null) {
+                        switch (oldFruit) {
+                            case "Dominic":
+                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString()));
+                                break;
+                            case "Sally":
+                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/profilegirl.png").toString()));
+                                break;
+                            case "Default":
+                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
+                                break;
+                        }
+                    }
+                    if (newFruit != null) {
+                        switch (newFruit) {
+                            case "Dominic":
+                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
+                                break;
+                            case "Sally":
+                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
+                                break;
+                            case "Default":
+                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
+                                break;
+                        }
+                    }
+                }
+            });
+        }
     }
 }
 
