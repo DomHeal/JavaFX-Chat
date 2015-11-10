@@ -8,7 +8,7 @@
 <?import javafx.collections.FXCollections?>
 
 <BorderPane prefHeight="420.0" prefWidth="420.0" style="-fx-background-color: #424a53;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
-   <center>
+   <left>
       <GridPane BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="103.0" />
@@ -34,11 +34,25 @@
             <Label text="Username: " textFill="WHITE" GridPane.rowIndex="2" />
             <TextField fx:id="usernameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label prefHeight="22.0" prefWidth="73.0" text="Server Details" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../images/blank.png" />
-               </image>
-            </ImageView>
+            <StackPane GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="Defaultview" fitHeight="93" fitWidth="93" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/blank.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="Sarahview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image preserveRatio="false" smooth="false" url="@../images/profilegirl.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="Dominicview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image preserveRatio="false" smooth="false" url="@../images/profile_circle.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
             <ChoiceBox fx:id="imagePicker" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <items>
                   <FXCollections fx:factory="observableArrayList">
@@ -48,7 +62,8 @@
                   </FXCollections>
                </items>
                     </ChoiceBox>
+            <Label fx:id="selectedPicture" text="Label" />
          </children>
       </GridPane>
-   </center>
+   </left>
 </BorderPane>

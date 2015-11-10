@@ -5,12 +5,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -25,12 +22,8 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import net.coobird.thumbnailator.Thumbnails;
 import tray.animations.AnimationType;
 import tray.notification.TrayNotification;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.Collections;
@@ -58,8 +51,12 @@ public class Controller implements Initializable{
     private ListView userList;
     @FXML
     private ImageView userImageView;
-    @FXML ImageView imageView;
-    @FXML ChoiceBox choiceBox;
+    @FXML ImageView Defaultview;
+    @FXML ImageView Sarahview;
+    @FXML ImageView Dominicview;
+
+    @FXML ChoiceBox imagePicker;
+    @FXML Label selectedPicture;
 
     ObservableList<String> items = FXCollections.observableArrayList ();
 
@@ -165,42 +162,43 @@ public class Controller implements Initializable{
     }
 
     @Override
-    @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        imagePicker.getSelectionModel().selectFirst();
+        selectedPicture.textProperty().bind(imagePicker.getSelectionModel().selectedItemProperty());
+        selectedPicture.setVisible(false);
 
-        if (choiceBox != null) {
-            choiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> selected, String oldFruit, String newFruit) {
-                    if (oldFruit != null) {
-                        switch (oldFruit) {
-                            case "Dominic":
-                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString()));
-                                break;
-                            case "Sally":
-                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/profilegirl.png").toString()));
-                                break;
-                            case "Default":
-                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
-                                break;
-                        }
-                    }
-                    if (newFruit != null) {
-                        switch (newFruit) {
-                            case "Dominic":
-                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
-                                break;
-                            case "Sally":
-                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
-                                break;
-                            case "Default":
-                                imageView.setImage(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
-                                break;
-                        }
+        imagePicker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> selected, String oldPicture, String newPicture) {
+                if (oldPicture != null) {
+                    switch (oldPicture) {
+                        case "Default":
+                            Defaultview.setVisible(false);
+                            break;
+                        case "Dominic":
+                            Dominicview.setVisible(false);
+                            break;
+                        case "Sarah":
+                            Sarahview.setVisible(false);
+                            break;
                     }
                 }
-            });
-        }
+                if (newPicture != null) {
+                    switch (newPicture) {
+                        case "Default":
+                            Defaultview.setVisible(true);
+                            break;
+                        case "Dominic":
+                            Dominicview.setVisible(true);
+                            break;
+                        case "Sarah":
+                            Sarahview.setVisible(true);
+                            break;
+                    }
+                }
+            }
+        });
     }
+
 }
 
