@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<BorderPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
+<BorderPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.ChatController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -28,11 +28,11 @@
                   </HBox>
                </bottom>
                <top>
-                  <TextArea fx:id="chatFlow" editable="false" prefHeight="469.0" prefWidth="803.0" stylesheets="@ChatViewStyle.css" wrapText="true" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                  </TextArea>
+                  <VBox fx:id="chatPane" prefHeight="471.0" prefWidth="803.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
                </top>
             </BorderPane>
          </children>

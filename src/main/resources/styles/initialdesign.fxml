@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<BorderPane prefHeight="420.0" prefWidth="420.0" style="-fx-background-color: #424a53;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.Controller">
+<BorderPane prefHeight="420.0" prefWidth="420.0" style="-fx-background-color: #424a53;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.LoginController">
    <left>
       <GridPane BorderPane.alignment="CENTER">
          <columnConstraints>

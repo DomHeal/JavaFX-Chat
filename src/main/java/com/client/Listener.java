@@ -14,9 +14,9 @@ class Listener implements Runnable, Serializable{
     BufferedReader in;
     static PrintWriter out;
     public TextArea chat;
-    public Controller controller;
+    public ChatController controller;
 
-    public Listener(String hostname, int port, String username, Controller controller) {
+    public Listener(String hostname, int port, String username, ChatController controller) {
         this.hostname = hostname;
         this.port = port;
         this.username = username;
