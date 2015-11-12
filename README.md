@@ -32,4 +32,3 @@ Notifications using Tray-Notifications Library
   <li>Userlist Not Showing Correct amount of users</li>
   <li>Can "Login" when server is not running </li>
 </ul>
-http://prntscr.com/921ucp
