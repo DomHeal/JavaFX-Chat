@@ -29,6 +29,6 @@ Notifications using Tray-Notifications Library
 
 <h3>Known Issues </h3>
 <ul>
-  <li>Userlist Not Showing Correct amount of users</li>
+  <li><strike>Userlist Not Showing Correct amount of users</strike></li>
   <li>Can "Login" when server is not running </li>
 </ul>
