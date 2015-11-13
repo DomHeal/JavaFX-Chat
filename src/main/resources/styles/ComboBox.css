@@ -1,0 +1,38 @@
+.comboTextField {
+    -fx-background-color: -fx-text-box-border, -fx-control-inner-background;
+    -fx-background-insets: 0, 1 0 1 1;
+    -fx-padding: 1 3 1 3;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+}
+
+.comboTextField:focused {
+    -fx-background-color: -fx-text-box-border, -fx-control-inner-background;
+    -fx-background-insets: 0, 1 0 1 1;
+
+}
+
+.comboButton {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 5 5 0, 0 4 4 0, 0 3 3 0;
+}
+
+.comboButton:focused {
+    -fx-color: -fx-focused-base;
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 5 5 0, 0 4 4 0, 0 3 3 0;
+}
+
+
+.comboFocus{
+    -fx-border-color:-fx-focus-color;
+    -fx-border-insets: -1;
+    -fx-border-radius: 0 5 5 0
+}
+.comboFocusOut{
+    -fx-border-color:transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0 5 5 0
+}

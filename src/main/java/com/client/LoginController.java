@@ -23,11 +23,13 @@ import java.util.ResourceBundle;
 /**
  * Created by Dominic on 12-Nov-15.
  */
-public class LoginController implements Initializable{
+public class LoginController implements Initializable {
     @FXML
     ImageView Defaultview;
-    @FXML ImageView Sarahview;
-    @FXML ImageView Dominicview;
+    @FXML
+    ImageView Sarahview;
+    @FXML
+    ImageView Dominicview;
     @FXML
     private TextField hostnameTextfield;
     @FXML
@@ -48,13 +50,13 @@ public class LoginController implements Initializable{
         FXMLLoader y = new FXMLLoader(getClass().getResource("/styles/maindesign.fxml"));
         Parent window3 = (Pane) y.load();
         con = y.<ChatController>getController();
-
-        Thread x = new Thread(new Listener(hostname, port, username, con));
+        Listener listener = new Listener(hostname, port, username, con);
+        Thread x = new Thread(listener);
         x.start();
 
         Stage stage = (Stage) hostnameTextfield.getScene().getWindow();
         stage.setResizable(true);
-        stage.setMinWidth(1020);
+        stage.setMinWidth(1040);
         stage.setHeight(620);
 
         Scene newScene = new Scene(window3);
@@ -64,6 +66,7 @@ public class LoginController implements Initializable{
             System.exit(0);
         });
         stage.setScene(newScene);
+        stage.centerOnScreen();
 
         con.setUsernameLabel(username);
 

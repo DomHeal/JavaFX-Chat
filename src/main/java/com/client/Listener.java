@@ -15,6 +15,7 @@ class Listener implements Runnable, Serializable{
     static PrintWriter out;
     public TextArea chat;
     public ChatController controller;
+    private boolean isConnected = false;
 
     public Listener(String hostname, int port, String username, ChatController controller) {
         this.hostname = hostname;
@@ -24,6 +25,7 @@ class Listener implements Runnable, Serializable{
     }
 
     public void run() {
+
         try {
             socket = new Socket(hostname, port);
         } catch (IOException e) {
@@ -37,28 +39,33 @@ class Listener implements Runnable, Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        isConnected = true;
         System.out.println("Sockets in and out ready!");
 
         out.println(username);
         while (true) {
-            String line = null;
+            String message = null;
             try {
-                line = in.readLine();
+                message = in.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (line != null) {
-                if (line.startsWith("UserCount:")) {
-                    controller.setOnlineLabel(line.substring(10));
+            if (message != null) {
+                if (message.startsWith("UserCount:")) {
+                    controller.setOnlineLabel(message.substring(10));
                 }
-                else if (line.startsWith("ClearList:")) {
+                else if (message.startsWith("ClearList:")) {
                     controller.clearUserList();
                 }
-                else if (line.startsWith("UserListAdd:")){
-                    controller.setUserList(line.substring(13));
+                else if (message.startsWith("UserListAdd:")){
+                    controller.setUserList(message.substring(13));
+                }
+                else if (message.startsWith("Server:")) {
+                    controller.addAsServer(message);
                 }
                 else {
-                    controller.addToChat(line);
+                    controller.addToChat(message);
                 }
             }
         }
@@ -67,4 +74,5 @@ class Listener implements Runnable, Serializable{
     public static void send(String msg) {
         out.println(msg);
     }
+
 }

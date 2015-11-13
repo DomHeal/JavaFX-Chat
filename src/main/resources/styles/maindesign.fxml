@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<BorderPane prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.ChatController">
+<BorderPane maxHeight="600.0" maxWidth="1040.0" prefHeight="600.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.ChatController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -18,21 +18,25 @@
                <bottom>
                   <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="24.0" prefWidth="664.0" promptText="Enter Message..." scaleShape="false" HBox.hgrow="NEVER">
+                        <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="78.0" prefWidth="657.0" promptText="Enter Message..." scaleShape="false" HBox.hgrow="NEVER">
                            <font>
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
                         </TextArea>
-                        <Button fx:id="buttonSend" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="138.0" scaleShape="false" text="Send" textAlignment="CENTER" />
+                        <Button fx:id="buttonSend" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="140.0" scaleShape="false" text="Send" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </bottom>
                <top>
-                  <VBox fx:id="chatPane" prefHeight="471.0" prefWidth="803.0" spacing="10.0" BorderPane.alignment="CENTER">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </VBox>
+                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="464.0" prefWidth="807.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
+                     <content>
+                        <VBox fx:id="chatPane" alignment="TOP_CENTER" prefHeight="450.0" prefWidth="787.0" spacing="10.0" style="-fx-border-width: 1px;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </top>
             </BorderPane>
          </children>
@@ -43,7 +47,7 @@
          <children>
             <Pane prefHeight="49.0" prefWidth="217.0">
                <children>
-                  <HBox prefHeight="50.0" prefWidth="217.0">
+                  <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="231.0" stylesheets="@ListViewStyle.css">
                      <children>
                         <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
                            <font>
@@ -68,13 +72,18 @@
                   </HBox>
                </children>
             </Pane>
-            <ListView fx:id="userList" focusTraversable="false" prefHeight="474.0" prefWidth="217.0" stylesheets="@ListViewStyle.css">
+            <HBox fx:id="listHbox" style="-fx-border-width: 5;" stylesheets="@ListViewStyle.css">
+               <children>
+                  <ListView fx:id="statusList" focusTraversable="false" prefHeight="473.0" prefWidth="16.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css" />
+                  <ListView fx:id="userList" focusTraversable="false" prefHeight="474.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css">
             </ListView>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </left>
    <top>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1020.0" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1040.0" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
          <center>
             <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
@@ -114,7 +123,7 @@
             </HBox>
          </right>
          <left>
-            <HBox prefHeight="80.0" prefWidth="243.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="80.0" prefWidth="259.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -134,14 +143,7 @@
                               <Font name="HelveticaNeue Medium" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Connected!" textFill="WHITE">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <VBox.margin>
-                              <Insets left="5.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ComboBox prefHeight="25.0" prefWidth="101.0" promptText="Online" stylesheets="@ComboBox.css" />
                      </children>
                   </VBox>
                </children></HBox>

@@ -47,7 +47,7 @@ public class Server {
                     }
                     synchronized (names) {
                         if (!names.contains(name)) {
-                            out.println("Welcome " + name + ", You have now joined the server! Enjoy chatting!");
+                            out.println("Server: Welcome " + name + ", You have now joined the server! Enjoy chatting!");
                             names.add(name);
                             //images.add()
                             break;

@@ -1,5 +1,7 @@
-.text-area .content{
-    -fx-background-color: #f5f5f5;
-    -fx-cell-size: 30;
+.vbox {
+    -fx-border-color: #2e8b57;
+    -fx-border-width: 2px;
+    -fx-padding: 10;
+    -fx-spacing: 8;
 }
 
