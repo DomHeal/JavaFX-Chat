@@ -34,7 +34,6 @@ public class ChatController implements Initializable{
     public BufferedReader in;
 
     @FXML private TextArea messageBox;
-    @FXML public TextArea chatFlow;
     @FXML private Label usernameLabel;
     @FXML private Label onlineCountLabel;
     @FXML private ListView userList;
@@ -124,8 +123,8 @@ public class ChatController implements Initializable{
         this.usernameLabel.setText(username);
     }
 
-    public void setImageLabel(String imageURL) throws IOException {
-        this.userImageView.setImage(new Image(imageURL));
+    public void setImageLabel() throws IOException {
+        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString()));
     }
 
     public void setOnlineLabel(String usercount) {
@@ -205,6 +204,10 @@ public class ChatController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        try {
+            setImageLabel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

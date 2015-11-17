@@ -24,22 +24,14 @@ import java.util.ResourceBundle;
  * Created by Dominic on 12-Nov-15.
  */
 public class LoginController implements Initializable {
-    @FXML
-    ImageView Defaultview;
-    @FXML
-    ImageView Sarahview;
-    @FXML
-    ImageView Dominicview;
-    @FXML
-    private TextField hostnameTextfield;
-    @FXML
-    private TextField portTextfield;
-    @FXML
-    private TextField usernameTextfield;
-    @FXML
-    ChoiceBox imagePicker;
-    @FXML
-    Label selectedPicture;
+    @FXML private ImageView Defaultview;
+    @FXML private ImageView Sarahview;
+    @FXML private ImageView Dominicview;
+    @FXML private TextField hostnameTextfield;
+    @FXML private TextField portTextfield;
+    @FXML private TextField usernameTextfield;
+    @FXML private ChoiceBox imagePicker;
+    @FXML private Label selectedPicture;
     public static ChatController con;
 
     public void loginButtonAction() throws IOException {
