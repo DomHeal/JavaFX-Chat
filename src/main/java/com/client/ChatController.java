@@ -210,4 +210,15 @@ public class ChatController implements Initializable{
             e.printStackTrace();
         }
     }
+
+    public void setImageLabel(String selectedPicture) {
+        switch (selectedPicture) {
+            case "Dominic": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString()));
+                break;
+            case "Sarah": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/profilegirl.png").toString()));
+                break;
+            case "Default": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/blank.png").toString()));
+                break;
+        }
+    }
 }

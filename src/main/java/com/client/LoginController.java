@@ -61,6 +61,7 @@ public class LoginController implements Initializable {
         stage.centerOnScreen();
 
         con.setUsernameLabel(username);
+        con.setImageLabel(selectedPicture.getText());
 
     }
 
