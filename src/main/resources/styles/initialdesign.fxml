@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<BorderPane prefHeight="420.0" prefWidth="420.0" style="-fx-background-color: #424a53;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.LoginController">
+<BorderPane prefHeight="420.0" prefWidth="420.0" style="-fx-background-color: #424a53;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.login.LoginController">
    <left>
       <GridPane BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -43,7 +43,7 @@
                   </ImageView>
                   <ImageView fx:id="Sarahview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image preserveRatio="false" smooth="false" url="@../images/profilegirl.png" />
+                        <Image preserveRatio="false" smooth="false" url="@../images/profile_circle.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="Dominicview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">

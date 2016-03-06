@@ -1,4 +1,4 @@
-package com.client;
+package com.client.login;
 
 import javafx.application.Application;
 import javafx.application.Platform;

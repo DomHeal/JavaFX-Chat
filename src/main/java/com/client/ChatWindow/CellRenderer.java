@@ -1,4 +1,4 @@
-package com.client;
+package com.client.chatwindow;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;

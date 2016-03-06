@@ -1,5 +1,8 @@
-package com.client;
+package com.client.chatwindow;
 
+import com.client.messages.BubbleSpec;
+import com.client.messages.BubbledLabel;
+import com.client.messages.Message;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,24 +17,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
-import rumorsapp.BubbleSpec;
-import rumorsapp.BubbledLabel;
 import tray.animations.AnimationType;
 import tray.notification.TrayNotification;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable{
-
-    public BufferedReader in;
 
     @FXML private TextArea messageBox;
     @FXML private Label usernameLabel;
@@ -43,7 +44,7 @@ public class ChatController implements Initializable{
 
     ObservableList<String> items = FXCollections.observableArrayList ();
 
-    public void sendButtonAction() {
+    public void sendButtonAction() throws IOException {
         String msg = messageBox.getText();
         if(!messageBox.getText().isEmpty()) {
             Listener.send(msg);
@@ -51,18 +52,18 @@ public class ChatController implements Initializable{
         }
     }
 
-    public synchronized void addToChat(String msg) {
+    public synchronized void addToChat(Message msg) {
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString());
+                Image image = new Image(getClass().getClassLoader().getResource("images/blank.png").toString());
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
 
                 BubbledLabel bl6 = new BubbledLabel();
 
-                bl6.setText(msg);
+                bl6.setText(msg.getName() + ": " + msg.getMsg());
                 bl6.setBackground(new Background(new BackgroundFill(Color.WHITE,
                         null, null)));
                 HBox x = new HBox();
@@ -80,14 +81,14 @@ public class ChatController implements Initializable{
         Task<HBox> yourMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString());
+                Image image = new Image(getClass().getClassLoader().getResource("images/blank.png").toString());
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
 
                 BubbledLabel bl6 = new BubbledLabel();
 
-                bl6.setText(msg);
+                bl6.setText(msg.getMsg());
                 bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
                         null, null)));
                 HBox x = new HBox();
@@ -99,14 +100,9 @@ public class ChatController implements Initializable{
             }
         };
 
-        yourMessages.setOnSucceeded(event -> {
-            chatPane.getChildren().add(yourMessages.getValue());
-        });
+        yourMessages.setOnSucceeded(event -> chatPane.getChildren().add(yourMessages.getValue()));
 
-        System.out.println(msg);
-        System.out.println();
-        if (msg.startsWith(usernameLabel.getText())){
-            msg.substring(usernameLabel.getText().length()+1);
+        if (msg.getName().equals(usernameLabel.getText())){
             Thread t2 = new Thread(yourMessages);
             t2.setDaemon(true);
             t2.start();
@@ -166,7 +162,7 @@ public class ChatController implements Initializable{
         });
         }
 
-    public void sendMethod(KeyEvent event){
+    public void sendMethod(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             sendButtonAction();
             messageBox.setText("");

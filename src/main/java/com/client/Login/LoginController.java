@@ -1,5 +1,7 @@
-package com.client;
+package com.client.login;
 
+import com.client.chatwindow.ChatController;
+import com.client.chatwindow.Listener;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,11 +40,12 @@ public class LoginController implements Initializable {
         String hostname = hostnameTextfield.getText();
         int port = Integer.parseInt(portTextfield.getText());
         String username = usernameTextfield.getText();
+        String picture = selectedPicture.getText();
 
         FXMLLoader y = new FXMLLoader(getClass().getResource("/styles/maindesign.fxml"));
         Parent window3 = (Pane) y.load();
         con = y.<ChatController>getController();
-        Listener listener = new Listener(hostname, port, username, con);
+        Listener listener = new Listener(hostname, port, username, picture, con);
         Thread x = new Thread(listener);
         x.start();
 
@@ -61,7 +64,7 @@ public class LoginController implements Initializable {
         stage.centerOnScreen();
 
         con.setUsernameLabel(username);
-        con.setImageLabel(selectedPicture.getText());
+        con.setImageLabel(picture);
 
     }
 
