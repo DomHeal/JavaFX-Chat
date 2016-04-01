@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JavaFx.iml" filepath="$PROJECT_DIR$/JavaFx.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client/client.iml" filepath="$PROJECT_DIR$/client/client.iml" />
     </modules>
   </component>
 </project>

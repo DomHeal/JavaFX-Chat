@@ -37,8 +37,16 @@
         <processorPath useClasspath="true" />
         <module name="Server" />
       </profile>
+      <profile default="false" name="Annotation profile for client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="client" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client" target="1.8" />
       <module name="JavaFx" target="1.8" />
       <module name="server" target="1.7" />
       <module name="Server" target="1.7" />
