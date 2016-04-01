@@ -26,5 +26,6 @@
     <orderEntry type="library" name="Maven: org.fxmisc.flowless:flowless:0.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.fxmisc.wellbehaved:wellbehavedfx:0.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.40.10" level="project" />
+    <orderEntry type="library" name="TrayNotification" level="project" />
   </component>
 </module>

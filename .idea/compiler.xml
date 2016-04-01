@@ -24,9 +24,24 @@
         <processorPath useClasspath="true" />
         <module name="JavaFx" />
       </profile>
+      <profile default="false" name="Annotation profile for server" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Annotation profile for Server" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Server" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JavaFx" target="1.8" />
+      <module name="server" target="1.7" />
+      <module name="Server" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

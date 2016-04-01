@@ -1,6 +1,6 @@
 package com.server;
 
-import com.client.messages.Message;
+import com.messages.Message;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,9 +17,8 @@ public class Server {
         System.out.println("The chat server is running.");
         ServerSocket listener = new ServerSocket(PORT);
         try {
-            while (true) {
                 new Handler(listener.accept()).start();
-            }
+
         } finally {
             listener.close();
         }
@@ -39,28 +38,23 @@ public class Server {
 
         public void run() {
             try {
+
                 is = socket.getInputStream();
                 input = new ObjectInputStream(is);
                 os = socket.getOutputStream();
                 output = new ObjectOutputStream(os);
 
-                synchronized (names) {
-                    if (!names.contains(name)) {
-                        System.out.println("Server: Welcome " + name + ", You have now joined the server! Enjoy chatting!");
-                        names.add(name);
-                    }
-                }
-
-
                 writers.add(output);
 
-
                 while (true) {
-                    Message inputmsg = ((Message) input.readObject());
+                    Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
-                        for (ObjectOutputStream writer : writers) {
-                            writer.writeObject(inputmsg);
-                            System.out.println(inputmsg.getName() + ": " + inputmsg.getMsg());
+                        System.out.println(inputmsg.getMsg());
+                        switch (inputmsg.getType()) {
+                            case "USER":
+                                write(inputmsg);break;
+                            case "CONNECTED":
+                                addToList(inputmsg);
                         }
                     }
                 }
@@ -72,14 +66,47 @@ public class Server {
                 if (name != null) {
                     names.remove(name);
                     System.out.println("User: " + name + " has been removed!");
+                    try {
+                        removeFromList(name);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (output != null) {
                     writers.remove(output);
                 }
                 try {
-                    socket.close();
-                } catch (IOException e) {
-                }
+                    output.close();
+                } catch (IOException e) {}
+            }
+        }
+
+        private synchronized void removeFromList(String name) throws IOException {
+            names.remove(name);
+            Message msg = new Message();
+            msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
+            msg.setType("DISCONNECTED");
+            msg.setName("SERVER");
+            msg.setUserlist(names);
+            write(msg);
+        }
+
+        private synchronized void addToList(Message msg) throws IOException {
+            if (!names.contains(msg.getName())) {
+                names.add(msg.getName());
+                msg = new Message();
+                msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
+                msg.setType("CONNECTED");
+                msg.setName("SERVER");
+                msg.setUserlist(names);
+                System.out.println(names.size());
+                write(msg);
+            }
+        }
+
+        public void write(Message msg) throws IOException {
+            for (ObjectOutputStream writer : writers) {
+                writer.writeObject(msg);
             }
         }
     }

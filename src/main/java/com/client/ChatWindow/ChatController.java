@@ -1,8 +1,8 @@
 package com.client.chatwindow;
 
-import com.client.messages.BubbleSpec;
-import com.client.messages.BubbledLabel;
-import com.client.messages.Message;
+import com.messages.BubbleSpec;
+import com.messages.BubbledLabel;
+import com.messages.Message;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -127,30 +127,39 @@ public class ChatController implements Initializable{
         Platform.runLater(() -> onlineCountLabel.setText(usercount));
     }
 
-    public void setUserList(String userListnames) {
+    public void setUserList(Message msg) {
+        clearUserList();
         Platform.runLater(() -> {
-            String[] userlist = userListnames.split(",");
+            System.out.println(msg.getUserlist().size());
+            String msgStr =  msg.getUserlist().toString();
+            msgStr = msgStr.replace("[","");
+            msgStr = msgStr.replace("]","");
+
+            String[] userlist = msgStr.split(",");
+            System.out.println(userlist.length);
             Collections.addAll(items, userlist);
             userList.setItems(items);
-            userList.setCellFactory(list -> new CellRenderer());
+            userList.setCellFactory(lists -> new CellRenderer());
             statusList.setItems(items);
-            statusList.setCellFactory(list -> new StatusCellRenderer());
+            statusList.setCellFactory(lists -> new StatusCellRenderer());
             statusList.setMouseTransparent( true );
             statusList.setFocusTraversable( false );
+            setOnlineLabel(String.valueOf(msg.getUserlist().size()));
 
-            newUserNotification(userlist);
         });
     }
 
-    private void newUserNotification(String[] userlist) {
-        Image profileImg = new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString(),50,50,false,false);
-        TrayNotification tray = new TrayNotification();
-        tray.setTitle("A new user has joined!");
-        tray.setMessage(userlist[userlist.length-1] + " has joined the JavaFX Chatroom!");
-        tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-        tray.setAnimationType(AnimationType.POPUP);
-        tray.setImage(profileImg);
-        tray.showAndDismiss(Duration.seconds(5));
+    public void newUserNotification(Message msg) {
+        Platform.runLater(() -> {
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString(),50,50,false,false);
+            TrayNotification tray = new TrayNotification();
+            tray.setTitle("A new user has joined!");
+            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
+            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+            tray.setAnimationType(AnimationType.POPUP);
+            tray.setImage(profileImg);
+            tray.showAndDismiss(Duration.seconds(5));
+        });
     }
 
     public void clearUserList() {
@@ -174,12 +183,12 @@ public class ChatController implements Initializable{
     }
 
 
-    public synchronized void addAsServer(String msg) {
+    public synchronized void addAsServer(Message msg) {
         Task<HBox> task = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
                 BubbledLabel bl6 = new BubbledLabel();
-                bl6.setText(msg);
+                bl6.setText(msg.getMsg());
                 bl6.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,
                         null, null)));
                 HBox x = new HBox();

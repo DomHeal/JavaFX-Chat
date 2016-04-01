@@ -1,4 +1,4 @@
-package com.client.messages;
+package com.messages;
 
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;

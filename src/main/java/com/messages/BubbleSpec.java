@@ -1,4 +1,4 @@
-package com.client.messages;
+package com.messages;
 
 public enum BubbleSpec {
 	

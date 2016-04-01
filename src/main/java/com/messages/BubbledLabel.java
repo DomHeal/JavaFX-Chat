@@ -1,4 +1,4 @@
-package com.client.messages;
+package com.messages;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
