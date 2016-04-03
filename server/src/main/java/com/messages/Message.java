@@ -8,7 +8,7 @@ public class Message implements Serializable {
     private String name;
     private String type;
     private String msg;
-    private HashSet userlist;
+    private HashSet userlist = new HashSet<String>();
 
     public Message() {
     }
@@ -42,9 +42,11 @@ public class Message implements Serializable {
         return userlist;
     }
 
-    public void setUserlist(HashSet userlist) {
-        this.userlist = userlist;
+    public void setUserlist(HashSet userlist2) {
+        userlist = userlist2;
     }
 
-
+    public String getUserlistAsString(){
+        return userlist.toString();
+    }
 }

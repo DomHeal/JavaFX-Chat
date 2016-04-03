@@ -130,13 +130,11 @@ public class ChatController implements Initializable{
     public void setUserList(Message msg) {
         clearUserList();
         Platform.runLater(() -> {
-            System.out.println(msg.getUserlist().size());
             String msgStr =  msg.getUserlist().toString();
             msgStr = msgStr.replace("[","");
             msgStr = msgStr.replace("]","");
 
             String[] userlist = msgStr.split(",");
-            System.out.println(userlist.length);
             Collections.addAll(items, userlist);
             userList.setItems(items);
             userList.setCellFactory(lists -> new CellRenderer());

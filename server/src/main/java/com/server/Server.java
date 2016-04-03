@@ -16,13 +16,19 @@ public class Server {
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running.");
         ServerSocket listener = new ServerSocket(PORT);
-        try {
-                new Handler(listener.accept()).start();
 
+        try {
+            while (true) {
+                new Handler(listener.accept()).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             listener.close();
         }
+
     }
+
 
     private static class Handler extends Thread {
         private String name;
@@ -38,23 +44,38 @@ public class Server {
 
         public void run() {
             try {
-
                 is = socket.getInputStream();
                 input = new ObjectInputStream(is);
                 os = socket.getOutputStream();
                 output = new ObjectOutputStream(os);
 
-                writers.add(output);
+
+                Message nameCheck = (Message) input.readObject();
+                synchronized (names) {
+                    if (!names.contains(nameCheck.getName())) {
+                        writers.add(output);
+                        this.name = nameCheck.getName();
+                        names.add(name);
+
+                        addToList(nameCheck);
+                        System.out.println(name + " added");
+                    } else {
+                        System.out.println("duplicate name");
+                    }
+
+                }
 
                 while (true) {
                     Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
-                        System.out.println(inputmsg.getMsg());
+                        System.out.println(currentThread().getName() + " name size : " + names.size());
                         switch (inputmsg.getType()) {
                             case "USER":
-                                write(inputmsg);break;
+                                write(inputmsg);
+                                break;
                             case "CONNECTED":
                                 addToList(inputmsg);
+                                break;
                         }
                     }
                 }
@@ -68,18 +89,20 @@ public class Server {
                     System.out.println("User: " + name + " has been removed!");
                     try {
                         removeFromList(name);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 if (output != null) {
                     writers.remove(output);
                 }
-                try {
-                    output.close();
-                } catch (IOException e) {}
+            }
+            try {
+                output.close();
+            } catch (IOException e) {
             }
         }
+
 
         private synchronized void removeFromList(String name) throws IOException {
             names.remove(name);
@@ -91,21 +114,18 @@ public class Server {
             write(msg);
         }
 
-        private synchronized void addToList(Message msg) throws IOException {
-            if (!names.contains(msg.getName())) {
-                names.add(msg.getName());
-                msg = new Message();
-                msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
-                msg.setType("CONNECTED");
-                msg.setName("SERVER");
-                msg.setUserlist(names);
-                System.out.println(names.size());
-                write(msg);
-            }
+        private void addToList(Message msg) throws IOException {
+            msg = new Message();
+            msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
+            msg.setType("CONNECTED");
+            msg.setName("SERVER");
+            write(msg);
         }
 
-        public void write(Message msg) throws IOException {
+        private void write(Message msg) throws IOException {
             for (ObjectOutputStream writer : writers) {
+                msg.setUserlist(names);
+                System.out.println(msg.getUserlist().size());
                 writer.writeObject(msg);
             }
         }

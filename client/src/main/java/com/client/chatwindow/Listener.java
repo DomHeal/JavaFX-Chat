@@ -5,7 +5,7 @@ import com.messages.Message;
 import java.io.*;
 import java.net.Socket;
 
-public class Listener implements Runnable, Serializable{
+public class Listener implements Runnable{
 
     private final String picture;
     private Socket socket;
@@ -13,7 +13,6 @@ public class Listener implements Runnable, Serializable{
     public int port;
     public static String username;
     public ChatController controller;
-    private boolean isConnected = false;
     private static ObjectOutputStream oos;
     private InputStream is;
     private ObjectInputStream input;
@@ -39,7 +38,6 @@ public class Listener implements Runnable, Serializable{
 
         try {
             outputStream = socket.getOutputStream();
-            FileOutputStream fos = new FileOutputStream("message.ser");
             oos = new ObjectOutputStream(outputStream);
             is = socket.getInputStream();
             input = new ObjectInputStream(is);
@@ -61,6 +59,7 @@ public class Listener implements Runnable, Serializable{
             } catch (IOException | ClassNotFoundException e) {
             }
             if (message != null) {
+                System.out.println(message.getUserlist().size());
                 switch (message.getType()){
                     case "USER": controller.addToChat(message); break;
                     case "NOTIFICATION": controller.newUserNotification(message); break;
