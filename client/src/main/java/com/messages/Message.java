@@ -1,6 +1,7 @@
 package com.messages;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -11,7 +12,8 @@ public class Message implements Serializable {
     private String name;
     private String type;
     private String msg;
-    private HashSet userlist = new HashSet<String>();
+    private int count;
+    private ArrayList<String> list;
 
     public Message() {
     }
@@ -41,16 +43,20 @@ public class Message implements Serializable {
         this.type = type;
     }
 
-    public HashSet getUserlist() {
-        return userlist;
-    }
-
-    public String getUserlistAsString(){
-        return userlist.toString();
+    public ArrayList<String> getUserlist() {
+        return list;
     }
 
     public void setUserlist(HashSet userlist2) {
-        userlist = userlist2;
+        this.list = new ArrayList<String>(userlist2);
+    }
+
+    public void setOnlineCount(int count){
+        this.count = count;
+    }
+
+    public int getOnlineCount(){
+        return this.count;
     }
 
 

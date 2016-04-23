@@ -59,7 +59,7 @@ public class Listener implements Runnable{
             } catch (IOException | ClassNotFoundException e) {
             }
             if (message != null) {
-                System.out.println(message.getUserlist().size());
+                System.out.println("COUNT" + message.getOnlineCount());
                 switch (message.getType()){
                     case "USER": controller.addToChat(message); break;
                     case "NOTIFICATION": controller.newUserNotification(message); break;

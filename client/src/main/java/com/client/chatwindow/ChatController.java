@@ -69,7 +69,8 @@ public class ChatController implements Initializable{
                 HBox x = new HBox();
                 bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
                 x.getChildren().addAll(profileImage, bl6);
-
+                System.out.println("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
+                setOnlineLabel(Integer.toString(msg.getOnlineCount()));
                 return x;
             }
         };
@@ -95,7 +96,8 @@ public class ChatController implements Initializable{
                 x.setAlignment(Pos.TOP_RIGHT);
                 bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
                 x.getChildren().addAll(bl6, profileImage);
-
+                System.out.println("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
+                setOnlineLabel(Integer.toString(msg.getOnlineCount()));
                 return x;
             }
         };
@@ -133,8 +135,10 @@ public class ChatController implements Initializable{
             String msgStr =  msg.getUserlist().toString();
             msgStr = msgStr.replace("[","");
             msgStr = msgStr.replace("]","");
+            msgStr.replace(" ","");
 
             String[] userlist = msgStr.split(",");
+
             Collections.addAll(items, userlist);
             userList.setItems(items);
             userList.setCellFactory(lists -> new CellRenderer());
