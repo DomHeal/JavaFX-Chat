@@ -1,0 +1,28 @@
+#CloseBtn {
+    -fx-graphic: url("../images/cross.png");
+    -fx-background-color:transparent;
+    -fx-opacity: 1;
+
+}
+
+#CloseBtn:hover {
+    -fx-opacity: 0.5;
+
+}
+#CloseBtn:pressed {
+     -fx-opacity: 0.2;
+
+
+ }
+
+#MinimizedBtn {
+    -fx-graphic: url("../images/line.png");
+    -fx-background-color:transparent;
+    -fx-opacity: 1;
+
+}
+
+#MinimizedBtn:hover {
+    -fx-opacity: 0.5;
+
+}

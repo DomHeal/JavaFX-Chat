@@ -29,6 +29,7 @@ import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
@@ -132,14 +133,10 @@ public class ChatController implements Initializable{
     public void setUserList(Message msg) {
         clearUserList();
         Platform.runLater(() -> {
-            String msgStr =  msg.getUserlist().toString();
-            msgStr = msgStr.replace("[","");
-            msgStr = msgStr.replace("]","");
-            msgStr.replace(" ","");
+            ArrayList<String> msgStr =  msg.getUserlist();
+            String[] array = msgStr.toArray(new String[0]);
 
-            String[] userlist = msgStr.split(",");
-
-            Collections.addAll(items, userlist);
+            Collections.addAll(items, array);
             userList.setItems(items);
             userList.setCellFactory(lists -> new CellRenderer());
             statusList.setItems(items);

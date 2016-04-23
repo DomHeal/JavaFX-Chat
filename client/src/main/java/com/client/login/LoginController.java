@@ -2,6 +2,9 @@ package com.client.login;
 
 import com.client.chatwindow.ChatController;
 import com.client.chatwindow.Listener;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,12 +17,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -35,6 +43,7 @@ public class LoginController implements Initializable {
     @FXML private ChoiceBox imagePicker;
     @FXML private Label selectedPicture;
     public static ChatController con;
+    @FXML private BorderPane borderPane;
 
     public void loginButtonAction() throws IOException {
         String hostname = hostnameTextfield.getText();
@@ -74,6 +83,7 @@ public class LoginController implements Initializable {
         selectedPicture.textProperty().bind(imagePicker.getSelectionModel().selectedItemProperty());
         selectedPicture.setVisible(false);
 
+
         imagePicker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> selected, String oldPicture, String newPicture) {
@@ -105,5 +115,49 @@ public class LoginController implements Initializable {
                 }
             }
         });
+        int numberOfSquares = 30;
+        while (numberOfSquares > 0){
+            generateAnimation();
+            numberOfSquares--;
+        }
+    }
+
+    public void generateAnimation(){
+        Random rand = new Random();
+        int size = rand.nextInt(50) + 1;
+
+        Rectangle r1 = new Rectangle(0,0,size,size);
+        r1.setFill(Color.web("#F89406"));
+        r1.setOpacity(0.1);
+
+        KeyValue xval = null;
+        if (size  % 2 == 0){
+            xval = new KeyValue(r1.xProperty(), 420);
+        } else {
+            xval = new KeyValue(r1.xProperty(), 420);
+        }
+
+        KeyValue yval = null;
+        if (size  % 3 == 0){
+            yval = new KeyValue(r1.yProperty(), 420);
+        } else {
+            yval = new KeyValue(r1.yProperty(), 420);
+        }
+
+        rand = new Random();
+        int speed = rand.nextInt(10) + 5;
+
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(speed * 1000), xval, yval);
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(true);
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+        borderPane.getChildren().add(borderPane.getChildren().size()-1,r1);
+
+    }
+
+    public void closeSystem(){
+        Platform.exit();
     }
 }
