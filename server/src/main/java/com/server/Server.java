@@ -69,6 +69,7 @@ public class Server {
                         addToList(nameCheck);
                         System.out.println(name + " added");
                     } else {
+                        new Exception();
                         logger.info(nameCheck.getName() + " is already connected");
                     }
 
@@ -110,6 +111,7 @@ public class Server {
             try {
                 output.close();
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

@@ -19,16 +19,16 @@ Notifications using Tray-Notifications Library
   <li><strike>Multi-Client Support</strike></li>
   <li><strike>Username Selection</strike></li>
   <li><strike>MOTD on Connect</strike></li>
-  <li>Server GUI</li>
   <li><strike>Connected Userlist</strike></li>
+  <li><strike>Basic Animation</strike></li>
   <li>Profile Picture (Presets / Upload)</li>
   <li>Able to Set Status (Away / Busy / Online)</li>
   <li>Voice Communication</li>
   <li>Sounds & External CSS</li>
+  <li>Server GUI</li>
 </ul>
 
 <h3>Known Issues </h3>
 <ul>
-  <li><strike>Userlist Not Showing Correct amount of users</strike></li>
-  <li>Can "Login" when server is not running </li>
+
 </ul>

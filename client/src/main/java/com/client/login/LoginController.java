@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -32,13 +33,13 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
- * Created by Dominic on 12-Nov-15.
+ *  Created by Dominic on 12-Nov-15.
  */
 public class LoginController implements Initializable {
     @FXML private ImageView Defaultview;
     @FXML private ImageView Sarahview;
     @FXML private ImageView Dominicview;
-    @FXML private TextField hostnameTextfield;
+    @FXML public  TextField hostnameTextfield;
     @FXML private TextField portTextfield;
     @FXML private TextField usernameTextfield;
     @FXML private ChoiceBox imagePicker;
@@ -47,37 +48,51 @@ public class LoginController implements Initializable {
     @FXML private BorderPane borderPane;
     private double xOffset;
     private double yOffset;
+    private Scene scene;
+    private Stage stage;
 
+    private static LoginController instance;
+
+    public LoginController() {
+        instance = this;
+    }
+
+    public static LoginController getInstance() {
+        return instance;
+    }
     public void loginButtonAction() throws IOException {
         String hostname = hostnameTextfield.getText();
         int port = Integer.parseInt(portTextfield.getText());
         String username = usernameTextfield.getText();
         String picture = selectedPicture.getText();
 
-        FXMLLoader y = new FXMLLoader(getClass().getResource("/styles/maindesign.fxml"));
-        Parent window3 = (Pane) y.load();
-        con = y.<ChatController>getController();
+        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/styles/maindesign.fxml"));
+        Parent window = (Pane) fmxlLoader.load();
+        con = fmxlLoader.<ChatController>getController();
         Listener listener = new Listener(hostname, port, username, picture, con);
         Thread x = new Thread(listener);
         x.start();
 
-        Stage stage = (Stage) hostnameTextfield.getScene().getWindow();
-        stage.setResizable(true);
-        stage.setMinWidth(1040);
-        stage.setHeight(620);
+        this.stage = (Stage) hostnameTextfield.getScene().getWindow();
+        this.scene = new Scene(window);
+    }
 
-        Scene newScene = new Scene(window3);
-        stage.setResizable(false);
-        stage.setOnCloseRequest((WindowEvent e) -> {
-            Platform.exit();
-            System.exit(0);
+    public void showScene() throws IOException {
+        Platform.runLater(() -> {
+            stage.setResizable(true);
+            stage.setMinWidth(1040);
+            stage.setHeight(620);
+
+            stage.setResizable(false);
+            stage.setOnCloseRequest((WindowEvent e) -> {
+                Platform.exit();
+                System.exit(0);
+            });
+            stage.setScene(this.scene);
+            stage.centerOnScreen();
+            con.setUsernameLabel(usernameTextfield.getText());
+            con.setImageLabel(selectedPicture.getText());
         });
-        stage.setScene(newScene);
-        stage.centerOnScreen();
-
-        con.setUsernameLabel(username);
-        con.setImageLabel(picture);
-
     }
 
     @Override
@@ -86,6 +101,22 @@ public class LoginController implements Initializable {
         selectedPicture.textProperty().bind(imagePicker.getSelectionModel().selectedItemProperty());
         selectedPicture.setVisible(false);
 
+        /* Drag and Drop */
+        borderPane.setOnMousePressed(event -> {
+            xOffset = MainLauncher.getPrimaryStage().getX() - event.getScreenX();
+            yOffset = MainLauncher.getPrimaryStage().getY() - event.getScreenY();
+            borderPane.setCursor(Cursor.CLOSED_HAND);
+        });
+
+        borderPane.setOnMouseDragged(event -> {
+            MainLauncher.getPrimaryStage().setX(event.getScreenX() + xOffset);
+            MainLauncher.getPrimaryStage().setY(event.getScreenY() + yOffset);
+
+        });
+
+        borderPane.setOnMouseReleased(event -> {
+            borderPane.setCursor(Cursor.DEFAULT);
+        });
 
         imagePicker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -125,6 +156,8 @@ public class LoginController implements Initializable {
         }
     }
 
+
+
     public void generateAnimation(){
         Random rand = new Random();
         int size = rand.nextInt(50) + 1;
@@ -133,14 +166,14 @@ public class LoginController implements Initializable {
         r1.setFill(Color.web("#F89406"));
         r1.setOpacity(0.1);
 
-        KeyValue xval = null;
+        KeyValue xval;
         if (size  % 2 == 0){
             xval = new KeyValue(r1.xProperty(), 420);
         } else {
             xval = new KeyValue(r1.xProperty(), 420);
         }
 
-        KeyValue yval = null;
+        KeyValue yval;
         if (size  % 3 == 0){
             yval = new KeyValue(r1.yProperty(), 420);
         } else {
@@ -157,22 +190,6 @@ public class LoginController implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
         borderPane.getChildren().add(borderPane.getChildren().size()-1,r1);
-        borderPane.setOnMousePressed(event -> {
-            xOffset = MainLauncher.getPrimaryStage().getX() - event.getScreenX();
-            yOffset = MainLauncher.getPrimaryStage().getY() - event.getScreenY();
-            borderPane.setCursor(Cursor.CLOSED_HAND);
-        });
-
-        borderPane.setOnMouseDragged(event -> {
-            MainLauncher.getPrimaryStage().setX(event.getScreenX() + xOffset);
-            MainLauncher.getPrimaryStage().setY(event.getScreenY() + yOffset);
-
-        });
-
-        borderPane.setOnMouseReleased(event -> {
-            borderPane.setCursor(Cursor.DEFAULT);
-        });
-
     }
 
     public void closeSystem(){
@@ -181,5 +198,17 @@ public class LoginController implements Initializable {
 
     public void minimizeWindow(){
         MainLauncher.getPrimaryStage().setIconified(true);
+    }
+
+    public void showErrorDialog(String s) {
+        Platform.runLater(()-> {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning!");
+            alert.setHeaderText("Could not establish connect with the server");
+            alert.setContentText("Please check for firewall issues and check if the server is running.");
+
+            alert.showAndWait();
+        });
+
     }
 }

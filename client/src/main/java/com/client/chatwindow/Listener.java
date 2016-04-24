@@ -1,5 +1,6 @@
 package com.client.chatwindow;
 
+import com.client.login.LoginController;
 import com.messages.Message;
 
 import java.io.*;
@@ -30,8 +31,10 @@ public class Listener implements Runnable{
 
         try {
             socket = new Socket(hostname, port);
+            LoginController.getInstance().showScene();
         } catch (IOException e) {
-            e.printStackTrace();
+            LoginController.getInstance().showErrorDialog("Could not connect to server");
+            System.out.println("Could not Connect");
         }
         System.out.println("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
 
@@ -59,7 +62,6 @@ public class Listener implements Runnable{
             } catch (IOException | ClassNotFoundException e) {
             }
             if (message != null) {
-                System.out.println("COUNT" + message.getOnlineCount());
                 switch (message.getType()){
                     case "USER": controller.addToChat(message); break;
                     case "NOTIFICATION": controller.newUserNotification(message); break;
