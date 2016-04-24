@@ -68,7 +68,7 @@
             <Label fx:id="selectedPicture" text="Label" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Button id="MinimizedBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="24.0" maxWidth="68.0" minWidth="45.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="45.0" stylesheets="@Login.css">
+                  <Button id="MinimizedBtn" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="24.0" maxWidth="68.0" minWidth="45.0" mnemonicParsing="false" onAction="#minimizeWindow" prefHeight="24.0" prefWidth="45.0" stylesheets="@Login.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

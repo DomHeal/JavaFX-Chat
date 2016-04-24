@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -44,6 +45,8 @@ public class LoginController implements Initializable {
     @FXML private Label selectedPicture;
     public static ChatController con;
     @FXML private BorderPane borderPane;
+    private double xOffset;
+    private double yOffset;
 
     public void loginButtonAction() throws IOException {
         String hostname = hostnameTextfield.getText();
@@ -154,10 +157,29 @@ public class LoginController implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
         borderPane.getChildren().add(borderPane.getChildren().size()-1,r1);
+        borderPane.setOnMousePressed(event -> {
+            xOffset = MainLauncher.getPrimaryStage().getX() - event.getScreenX();
+            yOffset = MainLauncher.getPrimaryStage().getY() - event.getScreenY();
+            borderPane.setCursor(Cursor.CLOSED_HAND);
+        });
+
+        borderPane.setOnMouseDragged(event -> {
+            MainLauncher.getPrimaryStage().setX(event.getScreenX() + xOffset);
+            MainLauncher.getPrimaryStage().setY(event.getScreenY() + yOffset);
+
+        });
+
+        borderPane.setOnMouseReleased(event -> {
+            borderPane.setCursor(Cursor.DEFAULT);
+        });
 
     }
 
     public void closeSystem(){
         Platform.exit();
+    }
+
+    public void minimizeWindow(){
+        MainLauncher.getPrimaryStage().setIconified(true);
     }
 }
