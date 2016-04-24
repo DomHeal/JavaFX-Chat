@@ -41,17 +41,17 @@
                <children>
                   <ImageView fx:id="Defaultview" fitHeight="93" fitWidth="93" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/blank.png" />
+                        <Image url="@../images/default.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="Sarahview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image preserveRatio="false" smooth="false" url="@../images/profile_circle.png" />
+                        <Image preserveRatio="false" smooth="false" url="@../images/sarah.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="Dominicview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image preserveRatio="false" smooth="true" url="@../images/profile_circle.png" />
+                        <Image preserveRatio="false" smooth="true" url="@../images/Dominic.png" />
                      </image>
                   </ImageView>
                </children>

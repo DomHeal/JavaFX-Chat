@@ -57,7 +57,7 @@ public class ChatController implements Initializable{
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/blank.png").toString());
+                Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
@@ -83,7 +83,7 @@ public class ChatController implements Initializable{
         Task<HBox> yourMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/blank.png").toString());
+                Image image = userImageView.getImage();
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
@@ -97,7 +97,6 @@ public class ChatController implements Initializable{
                 x.setAlignment(Pos.TOP_RIGHT);
                 bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
                 x.getChildren().addAll(bl6, profileImage);
-                System.out.println("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
                 setOnlineLabel(Integer.toString(msg.getOnlineCount()));
                 return x;
             }
@@ -123,7 +122,7 @@ public class ChatController implements Initializable{
     }
 
     public void setImageLabel() throws IOException {
-        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString()));
+        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString()));
     }
 
     public void setOnlineLabel(String usercount) {
@@ -150,7 +149,7 @@ public class ChatController implements Initializable{
 
     public void newUserNotification(Message msg) {
         Platform.runLater(() -> {
-            Image profileImg = new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString(),50,50,false,false);
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString(),50,50,false,false);
             TrayNotification tray = new TrayNotification();
             tray.setTitle("A new user has joined!");
             tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
@@ -178,7 +177,8 @@ public class ChatController implements Initializable{
     }
 
     public void closeApplication(){
-        System.exit(1);
+        System.out.println("close");
+        Platform.exit();
     }
 
 
@@ -217,11 +217,11 @@ public class ChatController implements Initializable{
 
     public void setImageLabel(String selectedPicture) {
         switch (selectedPicture) {
-            case "Dominic": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/profile_circle.png").toString()));
+            case "Dominic": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString()));
                 break;
-            case "Sarah": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/profilegirl.png").toString()));
+            case "Sarah": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/sarah.png").toString()));
                 break;
-            case "Default": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/blank.png").toString()));
+            case "Default": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.png").toString()));
                 break;
         }
     }

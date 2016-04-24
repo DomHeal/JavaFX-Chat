@@ -12,6 +12,12 @@ public class Message implements Serializable {
     private int count;
     private ArrayList<String> list;
 
+    public String getPicture() {
+        return picture;
+    }
+
+    private String picture;
+
     public Message() {
     }
 
@@ -54,6 +60,10 @@ public class Message implements Serializable {
 
     public int getOnlineCount(){
         return this.count;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
 }

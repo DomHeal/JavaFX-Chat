@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class Listener implements Runnable{
 
-    private final String picture;
+    private static String picture;
     private Socket socket;
     public String hostname;
     public int port;
@@ -22,8 +22,8 @@ public class Listener implements Runnable{
     public Listener(String hostname, int port, String username, String picture, ChatController controller) {
         this.hostname = hostname;
         this.port = port;
-        this.username = username;
-        this.picture = picture;
+        Listener.username = username;
+        Listener.picture = picture;
         this.controller = controller;
     }
 
@@ -78,6 +78,8 @@ public class Listener implements Runnable{
         createMessage.setName(username);
         createMessage.setType("USER");
         createMessage.setMsg(msg);
+        System.out.println(picture);
+        createMessage.setPicture(picture);
         oos.writeObject(createMessage);
         oos.flush();
     }
@@ -87,6 +89,7 @@ public class Listener implements Runnable{
         createMessage.setName(username);
         createMessage.setType("CONNECTED");
         createMessage.setMsg("has connected!");
+        createMessage.setPicture(picture);
         oos.writeObject(createMessage);
     }
 
@@ -95,6 +98,7 @@ public class Listener implements Runnable{
         createMessage.setName(username);
         createMessage.setType("DISCONNECTD");
         createMessage.setMsg("has disconnect!");
+        createMessage.setPicture(picture);
         oos.writeObject(createMessage);
     }
 
