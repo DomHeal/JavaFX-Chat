@@ -1,5 +1,6 @@
 package com.client.chatwindow;
 
+import com.client.login.MainLauncher;
 import com.messages.BubbleSpec;
 import com.messages.BubbledLabel;
 import com.messages.Message;
@@ -10,6 +11,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -17,10 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -42,8 +41,11 @@ public class ChatController implements Initializable{
     @FXML private ImageView userImageView;
     @FXML VBox chatPane;
     @FXML ListView statusList;
+    @FXML BorderPane borderPane;
 
     ObservableList<String> items = FXCollections.observableArrayList ();
+    private double xOffset;
+    private double yOffset;
 
     public void sendButtonAction() throws IOException {
         String msg = messageBox.getText();
@@ -213,6 +215,22 @@ public class ChatController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+                /* Drag and Drop */
+        borderPane.setOnMousePressed(event -> {
+            xOffset = MainLauncher.getPrimaryStage().getX() - event.getScreenX();
+            yOffset = MainLauncher.getPrimaryStage().getY() - event.getScreenY();
+            borderPane.setCursor(Cursor.CLOSED_HAND);
+        });
+
+        borderPane.setOnMouseDragged(event -> {
+            MainLauncher.getPrimaryStage().setX(event.getScreenX() + xOffset);
+            MainLauncher.getPrimaryStage().setY(event.getScreenY() + yOffset);
+
+        });
+
+        borderPane.setOnMouseReleased(event -> {
+            borderPane.setCursor(Cursor.DEFAULT);
+        });
     }
 
     public void setImageLabel(String selectedPicture) {

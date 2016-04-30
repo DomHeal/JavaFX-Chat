@@ -2,27 +2,47 @@
     -fx-graphic: url("../images/cross.png");
     -fx-background-color:transparent;
     -fx-opacity: 1;
-
 }
 
 #CloseBtn:hover {
     -fx-opacity: 0.5;
-
 }
 #CloseBtn:pressed {
-     -fx-opacity: 0.2;
-
-
- }
+    -fx-opacity: 0.2;
+}
 
 #MinimizedBtn {
     -fx-graphic: url("../images/line.png");
-    -fx-background-color:transparent;
+    -fx-background-color: transparent;
     -fx-opacity: 1;
 
 }
 
 #MinimizedBtn:hover {
     -fx-opacity: 0.5;
+}
 
+#connectBtn{
+    -fx-color: #ffffff;
+    -fx-padding: 5px 20px;
+    -fx-background-color: linear-gradient(to bottom, #ffe49e 0%,#ffb700 3%,#ffad00 35%,#ff9000 97%,#e27f00 100%);
+    -fx-font-family: 'Open Sans', sans-serif;
+    -fx-font-size: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    -fx-opacity: 1;
+}
+#connectBtn:hover{
+    -fx-cursor: hand;
+    -fx-opacity: 0.5;
+}
+
+#connectBtn:pressed{
+    -fx-opacity: 1;
+    -fx-padding: 5px 20px;
+    -fx-spacing: 10px;
+    -fx-start-margin: 10px;
+    -fx-background-color: linear-gradient(to bottom, #ffe49e 0%,#ffb700 3%,#ffad00 35%,#ff9000 97%,#e27f00 100%);
+    -fx-font-family: 'Open Sans', sans-serif;
+    -fx-cursor: hand;
 }
