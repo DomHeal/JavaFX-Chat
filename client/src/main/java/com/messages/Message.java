@@ -2,18 +2,16 @@ package com.messages;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 
-/**
- * Created by Dominic on 06-Mar-16.
- */
 public class Message implements Serializable {
 
     private String name;
     private String type;
     private String msg;
     private int count;
-    private ArrayList<String> list;
+    private ArrayList<User> list;
+    private ArrayList<User> users;
 
     public String getPicture() {
         return picture;
@@ -49,12 +47,12 @@ public class Message implements Serializable {
         this.type = type;
     }
 
-    public ArrayList<String> getUserlist() {
+    public ArrayList<User> getUserlist() {
         return list;
     }
 
-    public void setUserlist(HashSet userlist2) {
-        this.list = new ArrayList<String>(userlist2);
+    public void setUserlist(HashMap<String, User> userList) {
+        this.list = new ArrayList<>(userList.values());
     }
 
     public void setOnlineCount(int count){
@@ -65,8 +63,16 @@ public class Message implements Serializable {
         return this.count;
     }
 
-
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 }

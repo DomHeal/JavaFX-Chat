@@ -18,7 +18,7 @@ class CellRenderer extends ListCell<String> {
         }
         if (item != null) {
             ImageView imageView = new ImageView();
-            Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString(),50,50,false,false);
+            Image image = new Image(getClass().getClassLoader().getResource("images/ .png").toString(),50,50,false,false);
             setText(item);
             imageView.setImage(image);
             setGraphic(imageView);

@@ -4,6 +4,7 @@ import com.client.login.MainLauncher;
 import com.messages.BubbleSpec;
 import com.messages.BubbledLabel;
 import com.messages.Message;
+import com.messages.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -22,14 +24,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
 import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable{
@@ -132,16 +133,72 @@ public class ChatController implements Initializable{
     }
 
     public void setUserList(Message msg) {
+        System.out.println("clear list");
         clearUserList();
         Platform.runLater(() -> {
-            ArrayList<String> msgStr =  msg.getUserlist();
-            String[] array = msgStr.toArray(new String[0]);
+            System.out.println(msg.getUsers().size());
+            System.out.println(msg.getUserlist().size());
+            ObservableList<User> users = FXCollections.observableList(msg.getUsers());
+            for (User user : users){
+                System.out.println(user.getName());
+            }
+            userList.setItems(users);
+            userList.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
 
-            Collections.addAll(items, array);
-            userList.setItems(items);
-            userList.setCellFactory(lists -> new CellRenderer());
-            statusList.setItems(items);
-            statusList.setCellFactory(lists -> new StatusCellRenderer());
+                @Override
+                public ListCell<User> call(ListView<User> p) {
+
+                    ListCell<User> cell = new ListCell<User>(){
+
+                        @Override
+                        protected void updateItem(User user, boolean bln) {
+                            super.updateItem(user, bln);
+                            setGraphic(null);
+                            setText(null);
+                            if (user != null) {
+                                setText(user.getName());
+                                ImageView imageView = new ImageView();
+                                Image image = new Image(getClass().getClassLoader().getResource("images/" + user.getPicture() + ".png").toString(),50,50,false,false);
+                                setText(user.getName());
+                                imageView.setImage(image);
+                                setGraphic(imageView);
+
+                            }
+                        }
+
+                    };
+
+                    return cell;
+                }
+            });
+            statusList.setItems(users);
+            statusList.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
+
+                @Override
+                public ListCell<User> call(ListView<User> p) {
+
+                    ListCell<User> cell = new ListCell<User>(){
+
+                        @Override
+                        protected void updateItem(User user, boolean bln) {
+                            super.updateItem(user, bln);
+                            if (bln) {
+                                setGraphic(null);
+                                setText(null);
+                            }
+                            if (user != null) {
+                                ImageView imageView = new ImageView();
+                                Image image = new Image(getClass().getClassLoader().getResource("images/" + "online" + ".png").toString(),16,16,false,false);
+                                imageView.setImage(image);
+                                setGraphic(imageView);
+                            }
+                        }
+
+                    };
+
+                    return cell;
+                }
+            });
             statusList.setMouseTransparent( true );
             statusList.setFocusTraversable( false );
             setOnlineLabel(String.valueOf(msg.getUserlist().size()));
@@ -151,7 +208,7 @@ public class ChatController implements Initializable{
 
     public void newUserNotification(Message msg) {
         Platform.runLater(() -> {
-            Image profileImg = new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString(),50,50,false,false);
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() +".png").toString(),50,50,false,false);
             TrayNotification tray = new TrayNotification();
             tray.setTitle("A new user has joined!");
             tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
@@ -165,9 +222,8 @@ public class ChatController implements Initializable{
     public void clearUserList() {
         Platform.runLater(() -> {
             userList.getItems().clear();
-            items.removeAll();
             userList.getItems().removeAll();
-            System.out.println("cleared lists");
+            userList.setCellFactory(null);
         });
         }
 

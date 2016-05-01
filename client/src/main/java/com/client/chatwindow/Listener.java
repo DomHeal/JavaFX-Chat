@@ -60,6 +60,7 @@ public class Listener implements Runnable{
             try {
                 message = (Message)input.readObject();
             } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
             if (message != null) {
                 switch (message.getType()){
@@ -78,7 +79,6 @@ public class Listener implements Runnable{
         createMessage.setName(username);
         createMessage.setType("USER");
         createMessage.setMsg(msg);
-        System.out.println(picture);
         createMessage.setPicture(picture);
         oos.writeObject(createMessage);
         oos.flush();
@@ -90,6 +90,7 @@ public class Listener implements Runnable{
         createMessage.setType("CONNECTED");
         createMessage.setMsg("has connected!");
         createMessage.setPicture(picture);
+        System.out.println("connect" + picture);
         oos.writeObject(createMessage);
     }
 

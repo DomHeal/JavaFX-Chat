@@ -1,10 +1,13 @@
 package com.server;
 
 import com.messages.Message;
+import com.messages.User;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
@@ -13,8 +16,9 @@ public class Server {
 
 
     private static final int PORT = 9001;
-    private static final HashSet<String> names = new HashSet<String>();
+    private static final HashMap<String, User> names = new HashMap<String, User>();
     private static HashSet<ObjectOutputStream> writers = new HashSet<ObjectOutputStream>();
+    private static ArrayList<User> users = new ArrayList<User>();
 
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running.");
@@ -57,20 +61,28 @@ public class Server {
                 output = new ObjectOutputStream(os);
 
 
-                Message nameCheck = (Message) input.readObject();
+                Message firstMessage = (Message) input.readObject();
                 synchronized (names) {
-                    logger.info(nameCheck.getName() + " is trying to connect");
-                    if (!names.contains(nameCheck.getName())) {
+                    logger.info(firstMessage.getName() + " is trying to connect");
+                    if (!names.containsKey(firstMessage.getName())) {
+                        this.name = firstMessage.getName();
                         writers.add(output);
-                        this.name = nameCheck.getName();
-                        names.add(name);
-                        logger.info(nameCheck.getName() + " has been added to the list");
 
-                        addToList(nameCheck);
+                        User user = new User();
+                        user.setName(firstMessage.getName());
+                        user.setPicture(firstMessage.getPicture());
+
+                        names.put(name, user);
+
+                        users.add(user);
+
+                        logger.info(firstMessage.getName() + " has been added to the list");
+                        addToList(firstMessage);
+
                         System.out.println(name + " added");
                     } else {
                         new Exception();
-                        logger.info(nameCheck.getName() + " is already connected");
+                        logger.info(firstMessage.getName() + " is already connected");
                     }
 
                 }
@@ -137,9 +149,12 @@ public class Server {
         private void write(Message msg) throws IOException {
             for (ObjectOutputStream writer : writers) {
                 msg.setUserlist(names);
+                msg.setUsers(users);
                 msg.setOnlineCount(names.size());
+                System.out.println(names.size());
                 logger.info(writer.toString() + " " + msg.getName() + " " + msg.getUserlist().toString());
                 writer.writeObject(msg);
+                writer.reset();
             }
         }
     }
