@@ -4,7 +4,7 @@ A small application which using JavaFX for a GUI chat application.
 
 Currently in Development.
 <p align="center">
-<img src="https://github.com/DomHeal/JavaFX-Chat/blob/master/screenshots/Animation2.gif?raw=true"/>
+<img src="https://github.com/DomHeal/JavaFX-Chat/blob/master/screenshots/Animation.gif?raw=true"/>
 </p>
 <p align="center">
 <img src="http://i.imgur.com/2UvHIJb.png"/>
