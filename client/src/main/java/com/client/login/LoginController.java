@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
         String username = usernameTextfield.getText();
         String picture = selectedPicture.getText();
 
-        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/styles/maindesign.fxml"));
+        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/styles/ChatView.fxml"));
         Parent window = (Pane) fmxlLoader.load();
         con = fmxlLoader.<ChatController>getController();
         Listener listener = new Listener(hostname, port, username, picture, con);
@@ -166,7 +166,6 @@ public class LoginController implements Initializable {
         int startYPoint = rand.nextInt(350);
         int direction = rand.nextInt(5) + 1;
 
-
         KeyValue moveXAxis = null;
         KeyValue moveYAxis = null;
         Rectangle r1 = null;
@@ -224,6 +223,8 @@ public class LoginController implements Initializable {
 
     public void closeSystem(){
         Platform.exit();
+        System.exit(0);
+        System.out.println("closing");
     }
 
     public void minimizeWindow(){

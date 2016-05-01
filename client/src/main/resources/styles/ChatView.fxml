@@ -18,7 +18,7 @@
                <bottom>
                   <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="78.0" prefWidth="657.0" promptText="Enter Message..." scaleShape="false" HBox.hgrow="NEVER">
+                        <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="78.0" prefWidth="657.0" promptText="Enter Message..." scaleShape="false">
                            <font>
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
@@ -108,7 +108,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="22.0" fitWidth="21.0" onKeyPressed="#closeApplication" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close_normal.png" />
                      </image>

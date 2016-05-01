@@ -16,7 +16,7 @@ public class MainLauncher extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStageObj = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("styles/initialdesign.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("styles/LoginView.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("Socket Chat : Client version 0.3");
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
