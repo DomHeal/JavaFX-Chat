@@ -23,7 +23,7 @@ Notifications using Tray-Notifications Library
   <li><strike>MOTD on Connect</strike></li>
   <li><strike>Connected Userlist</strike></li>
   <li><strike>Basic Animation</strike></li>
-  <li>Profile Picture (Presets / Upload)</li>
+  <li>Profile Picture (<strike>Presets</strike> / Upload)</li>
   <li>Able to Set Status (Away / Busy / Online)</li>
   <li>Voice Communication</li>
   <li>Sounds & External CSS</li>
@@ -32,5 +32,5 @@ Notifications using Tray-Notifications Library
 
 <h3>Known Issues </h3>
 <ul>
-
+  <li>Messages dissapear after screen is filled</li>
 </ul>
