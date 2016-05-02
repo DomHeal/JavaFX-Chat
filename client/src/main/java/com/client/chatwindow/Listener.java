@@ -60,7 +60,8 @@ public class Listener implements Runnable{
             try {
                 message = (Message)input.readObject();
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                controller.logoutScene();
+                break;
             }
             if (message != null) {
                 switch (message.getType()){

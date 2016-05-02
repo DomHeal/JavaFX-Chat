@@ -49,7 +49,6 @@ public class LoginController implements Initializable {
     private double xOffset;
     private double yOffset;
     private Scene scene;
-    private Stage stage;
 
     private static LoginController instance;
 
@@ -72,15 +71,14 @@ public class LoginController implements Initializable {
         Listener listener = new Listener(hostname, port, username, picture, con);
         Thread x = new Thread(listener);
         x.start();
-
-        this.stage = (Stage) hostnameTextfield.getScene().getWindow();
         this.scene = new Scene(window);
     }
 
     public void showScene() throws IOException {
         Platform.runLater(() -> {
+            Stage stage = MainLauncher.getPrimaryStage();
             stage.setResizable(true);
-            stage.setMinWidth(1040);
+            stage.setWidth(1040);
             stage.setHeight(620);
 
             stage.setResizable(false);
@@ -224,7 +222,6 @@ public class LoginController implements Initializable {
     public void closeSystem(){
         Platform.exit();
         System.exit(0);
-        System.out.println("closing");
     }
 
     public void minimizeWindow(){

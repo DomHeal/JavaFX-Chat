@@ -10,9 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -24,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
@@ -43,8 +47,6 @@ public class ChatController implements Initializable{
     @FXML VBox chatPane;
     @FXML ListView statusList;
     @FXML BorderPane borderPane;
-
-    ObservableList<String> items = FXCollections.observableArrayList ();
     private double xOffset;
     private double yOffset;
 
@@ -133,15 +135,9 @@ public class ChatController implements Initializable{
     }
 
     public void setUserList(Message msg) {
-        System.out.println("clear list");
         clearUserList();
         Platform.runLater(() -> {
-            System.out.println(msg.getUsers().size());
-            System.out.println(msg.getUserlist().size());
             ObservableList<User> users = FXCollections.observableList(msg.getUsers());
-            for (User user : users){
-                System.out.println(user.getName());
-            }
             userList.setItems(users);
             userList.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
 
@@ -162,12 +158,9 @@ public class ChatController implements Initializable{
                                 setText(user.getName());
                                 imageView.setImage(image);
                                 setGraphic(imageView);
-
                             }
                         }
-
                     };
-
                     return cell;
                 }
             });
@@ -222,10 +215,8 @@ public class ChatController implements Initializable{
     public void clearUserList() {
         Platform.runLater(() -> {
             userList.getItems().clear();
-            userList.getItems().removeAll();
-            userList.setCellFactory(null);
         });
-        }
+    }
 
     public void sendMethod(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -233,10 +224,10 @@ public class ChatController implements Initializable{
             messageBox.setText("");
         }
     }
-
+    @FXML
     public void closeApplication(){
-        System.out.println("close");
         Platform.exit();
+        System.exit(0);
     }
 
 
@@ -298,5 +289,24 @@ public class ChatController implements Initializable{
             case "Default": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.png").toString()));
                 break;
         }
+    }
+
+    public void logoutScene() {
+        Platform.runLater(() -> {
+            FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/styles/LoginView.fxml"));
+            Parent window = null;
+            try {
+                window = (Pane) fmxlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Stage stage = MainLauncher.getPrimaryStage();
+            Scene scene = new Scene(window);
+            stage.setMaxWidth(350);
+            stage.setMaxHeight(420);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        });
     }
 }

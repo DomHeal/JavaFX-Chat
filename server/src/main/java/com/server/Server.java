@@ -48,7 +48,7 @@ public class Server {
         private ObjectOutputStream output;
         private static final Logger logger = Logger.getLogger(Handler.class.getClass().getCanonicalName());
 
-        public Handler(Socket socket) {
+        public Handler(Socket socket) throws IOException {
             this.socket = socket;
         }
 
@@ -60,32 +60,8 @@ public class Server {
                 os = socket.getOutputStream();
                 output = new ObjectOutputStream(os);
 
-
                 Message firstMessage = (Message) input.readObject();
-                synchronized (names) {
-                    logger.info(firstMessage.getName() + " is trying to connect");
-                    if (!names.containsKey(firstMessage.getName())) {
-                        this.name = firstMessage.getName();
-                        writers.add(output);
-
-                        User user = new User();
-                        user.setName(firstMessage.getName());
-                        user.setPicture(firstMessage.getPicture());
-
-                        names.put(name, user);
-
-                        users.add(user);
-
-                        logger.info(firstMessage.getName() + " has been added to the list");
-                        addToList(firstMessage);
-
-                        System.out.println(name + " added");
-                    } else {
-                        new Exception();
-                        logger.info(firstMessage.getName() + " is already connected");
-                    }
-
-                }
+                checkDuplicateUsername(firstMessage);
 
                 while (true) {
                     Message inputmsg = (Message) input.readObject();
@@ -106,30 +82,41 @@ public class Server {
                 System.out.println(e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                if (name != null) {
-                    names.remove(name);
-                    System.out.println("User: " + name + " has been removed!");
+            }
+            finally {
+                closeConnections();
+            }
+        }
+
+        private synchronized void checkDuplicateUsername(Message firstMessage) {
+                logger.info(firstMessage.getName() + " is trying to connect");
+                if (!names.containsKey(firstMessage.getName())) {
+                    this.name = firstMessage.getName();
+                    writers.add(output);
+
+                    User user = new User();
+                    user.setName(firstMessage.getName());
+                    user.setPicture(firstMessage.getPicture());
+
+                    names.put(name, user);
+
+                    users.add(user);
+
+                    logger.info(firstMessage.getName() + " has been added to the list");
                     try {
-                        removeFromList(name);
-                    } catch (Exception e) {
+                        addToList(firstMessage);
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    System.out.println(name + " added");
+                } else {
+                    closeConnections();
+                    logger.info(firstMessage.getName() + " is already connected");
                 }
-                if (output != null) {
-                    writers.remove(output);
-                }
-            }
-            try {
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
 
         private synchronized void removeFromList(String name) throws IOException {
-            names.remove(name);
             Message msg = new Message();
             msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
             msg.setType("DISCONNECTED");
@@ -153,8 +140,32 @@ public class Server {
                 msg.setOnlineCount(names.size());
                 System.out.println(names.size());
                 logger.info(writer.toString() + " " + msg.getName() + " " + msg.getUserlist().toString());
-                writer.writeObject(msg);
-                writer.reset();
+                try {
+                    writer.writeObject(msg);
+                    writer.reset();
+                } catch (Exception ex){
+                    closeConnections();
+                }
+            }
+        }
+
+        private void closeConnections() {
+            if (name != null) {
+                names.remove(name);
+                System.out.println("User: " + name + " has been removed!");
+            }
+            if (output != null) {
+                writers.remove(output);
+            }
+            try {
+                output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                removeFromList(name);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

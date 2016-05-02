@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
@@ -108,7 +109,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="21.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close_normal.png" />
                      </image>
@@ -143,7 +144,15 @@
                               <Font name="HelveticaNeue Medium" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="101.0" promptText="Online" stylesheets="@ComboBox.css" />
+                        <ComboBox fx:id="statusComboBox" prefHeight="25.0" prefWidth="101.0" promptText="Online" stylesheets="@ComboBox.css">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Online" />
+                                 <String fx:value="Away" />
+                                 <String fx:value="Busy" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                      </children>
                   </VBox>
                </children></HBox>
