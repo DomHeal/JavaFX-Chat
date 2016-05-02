@@ -76,7 +76,7 @@ public class LoginController implements Initializable {
 
     public void showScene() throws IOException {
         Platform.runLater(() -> {
-            Stage stage = MainLauncher.getPrimaryStage();
+            Stage stage = (Stage) hostnameTextfield.getScene().getWindow();
             stage.setResizable(true);
             stage.setWidth(1040);
             stage.setHeight(620);
@@ -234,7 +234,6 @@ public class LoginController implements Initializable {
             alert.setTitle("Warning!");
             alert.setHeaderText("Could not establish connect with the server");
             alert.setContentText("Please check for firewall issues and check if the server is running.");
-
             alert.showAndWait();
         });
 

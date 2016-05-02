@@ -17,7 +17,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -28,7 +27,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
 import tray.notification.TrayNotification;
@@ -113,13 +111,14 @@ public class ChatController implements Initializable{
             Thread t2 = new Thread(yourMessages);
             t2.setDaemon(true);
             t2.start();
+            System.out.println("you");
         } else {
             Thread t = new Thread(othersMessages);
             t.setDaemon(true);
             t.start();
+            System.out.println("them");
         }
-
-
+        System.out.println(msg.getName() + ": " + msg.getMsg());
     }
 
     public void setUsernameLabel(String username) {
@@ -139,59 +138,9 @@ public class ChatController implements Initializable{
         Platform.runLater(() -> {
             ObservableList<User> users = FXCollections.observableList(msg.getUsers());
             userList.setItems(users);
-            userList.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
-
-                @Override
-                public ListCell<User> call(ListView<User> p) {
-
-                    ListCell<User> cell = new ListCell<User>(){
-
-                        @Override
-                        protected void updateItem(User user, boolean bln) {
-                            super.updateItem(user, bln);
-                            setGraphic(null);
-                            setText(null);
-                            if (user != null) {
-                                setText(user.getName());
-                                ImageView imageView = new ImageView();
-                                Image image = new Image(getClass().getClassLoader().getResource("images/" + user.getPicture() + ".png").toString(),50,50,false,false);
-                                setText(user.getName());
-                                imageView.setImage(image);
-                                setGraphic(imageView);
-                            }
-                        }
-                    };
-                    return cell;
-                }
-            });
+            userList.setCellFactory(new CellRenderer());
             statusList.setItems(users);
-            statusList.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
-
-                @Override
-                public ListCell<User> call(ListView<User> p) {
-
-                    ListCell<User> cell = new ListCell<User>(){
-
-                        @Override
-                        protected void updateItem(User user, boolean bln) {
-                            super.updateItem(user, bln);
-                            if (bln) {
-                                setGraphic(null);
-                                setText(null);
-                            }
-                            if (user != null) {
-                                ImageView imageView = new ImageView();
-                                Image image = new Image(getClass().getClassLoader().getResource("images/" + "online" + ".png").toString(),16,16,false,false);
-                                imageView.setImage(image);
-                                setGraphic(imageView);
-                            }
-                        }
-
-                    };
-
-                    return cell;
-                }
-            });
+            statusList.setCellFactory(new StatusCellRenderer());
             statusList.setMouseTransparent( true );
             statusList.setFocusTraversable( false );
             setOnlineLabel(String.valueOf(msg.getUserlist().size()));

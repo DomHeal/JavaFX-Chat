@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<BorderPane fx:id="borderPane" maxHeight="600.0" maxWidth="1040.0" prefHeight="600.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.chatwindow.ChatController">
+<BorderPane fx:id="borderPane" maxHeight="620.0" maxWidth="1040.0" prefHeight="620.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.chatwindow.ChatController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -29,7 +29,7 @@
                   </HBox>
                </bottom>
                <top>
-                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="464.0" prefWidth="807.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
+                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="496.0" prefWidth="809.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
                      <content>
                         <VBox fx:id="chatPane" alignment="TOP_CENTER" prefHeight="450.0" prefWidth="787.0" spacing="10.0" style="-fx-border-width: 1px;">
                            <opaqueInsets>
@@ -76,7 +76,7 @@
             <HBox fx:id="listHbox" style="-fx-border-width: 5;" stylesheets="@ListViewStyle.css">
                <children>
                   <ListView fx:id="statusList" focusTraversable="false" prefHeight="473.0" prefWidth="16.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css" />
-                  <ListView fx:id="userList" focusTraversable="false" prefHeight="474.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css">
+                  <ListView fx:id="userList" focusTraversable="false" prefHeight="502.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css">
             </ListView>
                </children>
             </HBox>
