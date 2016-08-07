@@ -28,8 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import tray.animations.AnimationType;
-import tray.notification.TrayNotification;
+//import tray.animations.AnimationType;
+//import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -150,14 +150,14 @@ public class ChatController implements Initializable{
 
     public void newUserNotification(Message msg) {
         Platform.runLater(() -> {
-            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() +".png").toString(),50,50,false,false);
-            TrayNotification tray = new TrayNotification();
-            tray.setTitle("A new user has joined!");
-            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
-            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-            tray.setAnimationType(AnimationType.POPUP);
-            tray.setImage(profileImg);
-            tray.showAndDismiss(Duration.seconds(5));
+//            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() +".png").toString(),50,50,false,false);
+//            TrayNotification tray = new TrayNotification();
+//            tray.setTitle("A new user has joined!");
+//            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
+//            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+//            tray.setAnimationType(AnimationType.POPUP);
+//            tray.setImage(profileImg);
+//            tray.showAndDismiss(Duration.seconds(5));
         });
     }
 
