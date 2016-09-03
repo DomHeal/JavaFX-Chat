@@ -41,7 +41,7 @@ public class ChatController implements Initializable{
     @FXML private Label onlineCountLabel;
     @FXML private ListView userList;
     @FXML private ImageView userImageView;
-    @FXML VBox chatPane;
+    @FXML ListView chatPane;
     @FXML ListView statusList;
     @FXML BorderPane borderPane;
     private double xOffset;
@@ -82,10 +82,11 @@ public class ChatController implements Initializable{
         };
 
         othersMessages.setOnSucceeded(event -> {
-            chatPane.getChildren().add(othersMessages.getValue());
+            chatPane.getItems().add(othersMessages.getValue());
         });
 
         Task<HBox> yourMessages = new Task<HBox>() {
+
             @Override
             public HBox call() throws Exception {
                 Image image = userImageView.getImage();
@@ -99,15 +100,16 @@ public class ChatController implements Initializable{
                 bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
                         null, null)));
                 HBox x = new HBox();
+                x.setMaxWidth(chatPane.getWidth()-20);
                 x.setAlignment(Pos.TOP_RIGHT);
                 bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
                 x.getChildren().addAll(bl6, profileImage);
+
                 setOnlineLabel(Integer.toString(msg.getOnlineCount()));
                 return x;
             }
         };
-
-        yourMessages.setOnSucceeded(event -> chatPane.getChildren().add(yourMessages.getValue()));
+        yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
 
         if (msg.getName().equals(usernameLabel.getText())){
             Thread t2 = new Thread(yourMessages);
@@ -118,6 +120,7 @@ public class ChatController implements Initializable{
             t.setDaemon(true);
             t.start();
         }
+
         System.out.println(msg.getName() + ": " + msg.getMsg());
     }
 
@@ -181,7 +184,7 @@ public class ChatController implements Initializable{
         System.exit(0);
     }
 
-
+    /* Method to display server messages */
     public synchronized void addAsServer(Message msg) {
         Task<HBox> task = new Task<HBox>() {
             @Override
@@ -198,7 +201,7 @@ public class ChatController implements Initializable{
             }
         };
         task.setOnSucceeded(event -> {
-            chatPane.getChildren().add(task.getValue());
+            chatPane.getItems().add(task.getValue());
         });
 
         Thread t = new Thread(task);

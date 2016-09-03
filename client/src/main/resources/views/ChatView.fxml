@@ -19,7 +19,7 @@
                <bottom>
                   <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="78.0" prefWidth="657.0" promptText="Enter Message..." scaleShape="false">
+                        <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="78.0" prefWidth="657.0" promptText="Enter Message..." scaleShape="false">
                            <font>
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
@@ -31,11 +31,7 @@
                <top>
                   <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="496.0" prefWidth="809.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
                      <content>
-                        <VBox fx:id="chatPane" alignment="TOP_CENTER" prefHeight="450.0" prefWidth="787.0" spacing="10.0" style="-fx-border-width: 1px;">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </VBox>
+                        <ListView fx:id="chatPane" prefHeight="200.0" prefWidth="200.0" />
                      </content>
                   </ScrollPane>
                </top>
@@ -124,7 +120,7 @@
             </HBox>
          </right>
          <left>
-            <HBox prefHeight="80.0" prefWidth="259.0" BorderPane.alignment="CENTER">
+            <HBox prefWidth="259.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
