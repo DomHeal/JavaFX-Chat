@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.reactfx:reactfx:2.0-M4u1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/reactfx/reactfx/2.0-M4u1/reactfx-2.0-M4u1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/reactfx/reactfx/2.0-M4u1/reactfx-2.0-M4u1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/reactfx/reactfx/2.0-M4u1/reactfx-2.0-M4u1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

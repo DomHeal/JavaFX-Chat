@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
 /**
- * Created by Dominic on 04-Nov-15.
+ * A Class for Rendering users images / name on the userlist.
  */
 class CellRenderer implements Callback<ListView<User>,ListCell<User>>{
         @Override

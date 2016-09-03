@@ -10,14 +10,12 @@ import javafx.util.Callback;
 ;
 
 /**
- * Created by Dominic on 04-Nov-15.
+ * This class is for rendering for status of the clients - this is for future development
  */
-class StatusCellRenderer implements Callback<ListView<User>,ListCell<User>> {
+class StatusCellRenderer implements Callback<ListView<User>, ListCell<User>> {
     @Override
     public ListCell<User> call(ListView<User> p) {
-
-        ListCell<User> cell = new ListCell<User>(){
-
+        ListCell<User> cell = new ListCell<User>() {
             @Override
             protected void updateItem(User user, boolean bln) {
                 super.updateItem(user, bln);
@@ -27,14 +25,12 @@ class StatusCellRenderer implements Callback<ListView<User>,ListCell<User>> {
                 }
                 if (user != null) {
                     ImageView imageView = new ImageView();
-                    Image image = new Image(getClass().getClassLoader().getResource("images/" + "online" + ".png").toString(),16,16,false,false);
+                    Image image = new Image(getClass().getClassLoader().getResource("images/" + "online" + ".png").toString(), 16, 16, false, false);
                     imageView.setImage(image);
                     setGraphic(imageView);
                 }
             }
-
         };
-
         return cell;
     }
 }

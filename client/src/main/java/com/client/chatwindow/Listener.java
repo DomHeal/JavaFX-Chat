@@ -2,6 +2,8 @@ package com.client.chatwindow;
 
 import com.client.login.LoginController;
 import com.messages.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,6 +20,7 @@ public class Listener implements Runnable{
     private InputStream is;
     private ObjectInputStream input;
     private OutputStream outputStream;
+    Logger logger = LoggerFactory.getLogger(Listener.class);
 
     public Listener(String hostname, int port, String username, String picture, ChatController controller) {
         this.hostname = hostname;
@@ -34,9 +37,9 @@ public class Listener implements Runnable{
             LoginController.getInstance().showScene();
         } catch (IOException e) {
             LoginController.getInstance().showErrorDialog("Could not connect to server");
-            System.out.println("Could not Connect");
+            logger.error("Could not Connect");
         }
-        System.out.println("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
+        logger.info("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
 
 
         try {
@@ -53,7 +56,7 @@ public class Listener implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Sockets in and out ready!");
+        logger.info("Sockets in and out ready!");
 
         while (true) {
             Message message = null;
@@ -75,6 +78,9 @@ public class Listener implements Runnable{
         }
     }
 
+    /* This method is used for sending a normal Message
+     * @param msg - The message which the user generates
+     */
     public static void send(String msg) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
@@ -85,6 +91,7 @@ public class Listener implements Runnable{
         oos.flush();
     }
 
+    /* This method is used to send a connecting message */
     public static void connect() throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
@@ -94,7 +101,7 @@ public class Listener implements Runnable{
         System.out.println("connect" + picture);
         oos.writeObject(createMessage);
     }
-
+    /* This method is used to send a disconnecting message */
     public static void disconnect() throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);

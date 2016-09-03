@@ -27,6 +27,9 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <slf4jVersion>1.6.1</slf4jVersion>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -38,6 +41,12 @@
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>8.40.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
         </dependency>
     </dependencies>
 </project>

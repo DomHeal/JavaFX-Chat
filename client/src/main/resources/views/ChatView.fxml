@@ -29,7 +29,7 @@
                   </HBox>
                </bottom>
                <top>
-                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="496.0" prefWidth="809.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="496.0" prefWidth="809.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
                      <content>
                         <VBox fx:id="chatPane" alignment="TOP_CENTER" prefHeight="450.0" prefWidth="787.0" spacing="10.0" style="-fx-border-width: 1px;">
                            <opaqueInsets>
@@ -48,7 +48,7 @@
          <children>
             <Pane prefHeight="49.0" prefWidth="217.0">
                <children>
-                  <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="231.0" stylesheets="@ListViewStyle.css">
+                  <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="231.0" stylesheets="@../styles/ListViewStyle.css">
                      <children>
                         <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
                            <font>
@@ -73,10 +73,10 @@
                   </HBox>
                </children>
             </Pane>
-            <HBox fx:id="listHbox" style="-fx-border-width: 5;" stylesheets="@ListViewStyle.css">
+            <HBox fx:id="listHbox" style="-fx-border-width: 5;" stylesheets="@../styles/ListViewStyle.css">
                <children>
-                  <ListView fx:id="statusList" focusTraversable="false" prefHeight="473.0" prefWidth="16.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css" />
-                  <ListView fx:id="userList" focusTraversable="false" prefHeight="502.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@ListViewStyle.css">
+                  <ListView fx:id="statusList" focusTraversable="false" prefHeight="473.0" prefWidth="16.0" style="-fx-border-image-width: 0;" stylesheets="@../styles/ListViewStyle.css" />
+                  <ListView fx:id="userList" focusTraversable="false" prefHeight="502.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@../styles/ListViewStyle.css">
             </ListView>
                </children>
             </HBox>
@@ -144,7 +144,7 @@
                               <Font name="HelveticaNeue Medium" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="statusComboBox" prefHeight="25.0" prefWidth="101.0" promptText="Online" stylesheets="@ComboBox.css">
+                        <ComboBox fx:id="statusComboBox" prefHeight="25.0" prefWidth="101.0" promptText="Online" stylesheets="@../styles/ComboBox.css">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="Online" />

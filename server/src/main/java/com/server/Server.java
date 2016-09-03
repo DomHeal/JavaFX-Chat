@@ -2,6 +2,8 @@ package com.server;
 
 import com.messages.Message;
 import com.messages.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -9,12 +11,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.logging.Logger;
 
 public class Server {
 
-
-
+    /* Setting up variables */
     private static final int PORT = 9001;
     private static final HashMap<String, User> names = new HashMap<String, User>();
     private static HashSet<ObjectOutputStream> writers = new HashSet<ObjectOutputStream>();
@@ -46,7 +46,7 @@ public class Server {
         private ObjectInputStream input;
         private OutputStream os;
         private ObjectOutputStream output;
-        private static final Logger logger = Logger.getLogger(Handler.class.getClass().getCanonicalName());
+        Logger logger = LoggerFactory.getLogger(Handler.class);
 
         public Handler(Socket socket) throws IOException {
             this.socket = socket;
@@ -67,7 +67,6 @@ public class Server {
                     Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
                         logger.info(inputmsg.getName() + " has " + names.size());
-                        System.out.println(currentThread().getName() + " name size : " + names.size());
                         switch (inputmsg.getType()) {
                             case "USER":
                                 write(inputmsg);
@@ -82,37 +81,36 @@ public class Server {
                 System.out.println(e);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 closeConnections();
             }
         }
 
         private synchronized void checkDuplicateUsername(Message firstMessage) {
-                logger.info(firstMessage.getName() + " is trying to connect");
-                if (!names.containsKey(firstMessage.getName())) {
-                    this.name = firstMessage.getName();
-                    writers.add(output);
+            logger.info(firstMessage.getName() + " is trying to connect");
+            if (!names.containsKey(firstMessage.getName())) {
+                this.name = firstMessage.getName();
+                writers.add(output);
 
-                    User user = new User();
-                    user.setName(firstMessage.getName());
-                    user.setPicture(firstMessage.getPicture());
+                User user = new User();
+                user.setName(firstMessage.getName());
+                user.setPicture(firstMessage.getPicture());
 
-                    names.put(name, user);
+                names.put(name, user);
 
-                    users.add(user);
+                users.add(user);
 
-                    logger.info(firstMessage.getName() + " has been added to the list");
-                    try {
-                        addToList(firstMessage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(name + " added");
-                } else {
-                    closeConnections();
-                    logger.info(firstMessage.getName() + " is already connected");
+                logger.info(firstMessage.getName() + " has been added to the list");
+                try {
+                    addToList(firstMessage);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                logger.info(name + " added");
+            } else {
+                closeConnections();
+                logger.info(firstMessage.getName() + " is already connected");
+            }
         }
 
 
@@ -125,6 +123,7 @@ public class Server {
             write(msg);
         }
 
+        /* For displaying that a user has joined the server */
         private void addToList(Message msg) throws IOException {
             msg = new Message();
             msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
@@ -133,26 +132,31 @@ public class Server {
             write(msg);
         }
 
+        /*
+         * Creates and sends a Message type to the listeners.
+         */
         private void write(Message msg) throws IOException {
             for (ObjectOutputStream writer : writers) {
                 msg.setUserlist(names);
                 msg.setUsers(users);
                 msg.setOnlineCount(names.size());
-                System.out.println(names.size());
                 logger.info(writer.toString() + " " + msg.getName() + " " + msg.getUserlist().toString());
                 try {
                     writer.writeObject(msg);
                     writer.reset();
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     closeConnections();
                 }
             }
         }
 
-        private void closeConnections() {
+        /*
+         * Once a user has been disconnected, we close the open connections and remove the writers
+         */
+        private synchronized void closeConnections() {
             if (name != null) {
                 names.remove(name);
-                System.out.println("User: " + name + " has been removed!");
+                logger.info("User: " + name + " has been removed!");
             }
             if (output != null) {
                 writers.remove(output);

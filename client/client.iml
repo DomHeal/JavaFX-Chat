@@ -11,6 +11,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="TrayNotification" level="project" />
+    <orderEntry type="library" name="Maven: org.fxmisc.richtext:richtextfx:0.6.10" level="project" />
+    <orderEntry type="library" name="Maven: org.reactfx:reactfx:2.0-M4u1" level="project" />
+    <orderEntry type="library" name="Maven: org.fxmisc.undo:undofx:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.fxmisc.flowless:flowless:0.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.fxmisc.wellbehaved:wellbehavedfx:0.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.40.10" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.1" level="project" />
   </component>
 </module>

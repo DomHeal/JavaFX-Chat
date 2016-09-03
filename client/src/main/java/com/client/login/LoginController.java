@@ -65,7 +65,7 @@ public class LoginController implements Initializable {
         String username = usernameTextfield.getText();
         String picture = selectedPicture.getText();
 
-        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/styles/ChatView.fxml"));
+        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
         Parent window = (Pane) fmxlLoader.load();
         con = fmxlLoader.<ChatController>getController();
         Listener listener = new Listener(hostname, port, username, picture, con);
@@ -155,7 +155,9 @@ public class LoginController implements Initializable {
     }
 
 
-
+    /* This method is used to generate the animation on the login window, It will generate random ints to determine
+     * the size, speed, starting points and direction of each square.
+     */
     public void generateAnimation(){
         Random rand = new Random();
         int sizeOfSqaure = rand.nextInt(50) + 1;
@@ -209,7 +211,6 @@ public class LoginController implements Initializable {
         r1.setFill(Color.web("#F89406"));
         r1.setOpacity(0.1);
 
-
         KeyFrame keyFrame = new KeyFrame(Duration.millis(speedOfSqaure * 1000), moveXAxis, moveYAxis);
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -219,6 +220,7 @@ public class LoginController implements Initializable {
         borderPane.getChildren().add(borderPane.getChildren().size()-1,r1);
     }
 
+    /* Terminates Application */
     public void closeSystem(){
         Platform.exit();
         System.exit(0);
@@ -228,11 +230,12 @@ public class LoginController implements Initializable {
         MainLauncher.getPrimaryStage().setIconified(true);
     }
 
-    public void showErrorDialog(String s) {
+    /* This displays an alert message to the user */
+    public void showErrorDialog(String message) {
         Platform.runLater(()-> {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning!");
-            alert.setHeaderText("Could not establish connect with the server");
+            alert.setHeaderText(message);
             alert.setContentText("Please check for firewall issues and check if the server is running.");
             alert.showAndWait();
         });

@@ -25,15 +25,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-//import tray.animations.AnimationType;
-//import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class ChatController implements Initializable{
 
@@ -111,12 +108,10 @@ public class ChatController implements Initializable{
             Thread t2 = new Thread(yourMessages);
             t2.setDaemon(true);
             t2.start();
-            System.out.println("you");
         } else {
             Thread t = new Thread(othersMessages);
             t.setDaemon(true);
             t.start();
-            System.out.println("them");
         }
         System.out.println(msg.getName() + ": " + msg.getMsg());
     }
@@ -148,6 +143,7 @@ public class ChatController implements Initializable{
         });
     }
 
+    /* Currently not implemented */
     public void newUserNotification(Message msg) {
         Platform.runLater(() -> {
 //            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() +".png").toString(),50,50,false,false);
@@ -242,7 +238,7 @@ public class ChatController implements Initializable{
 
     public void logoutScene() {
         Platform.runLater(() -> {
-            FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/styles/LoginView.fxml"));
+            FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/LoginView.fxml"));
             Parent window = null;
             try {
                 window = (Pane) fmxlLoader.load();
