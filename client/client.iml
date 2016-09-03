@@ -17,6 +17,7 @@
     <orderEntry type="library" name="Maven: org.fxmisc.flowless:flowless:0.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.fxmisc.wellbehaved:wellbehavedfx:0.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.40.10" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.5.6" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.5.6" level="project" />
   </component>
 </module>
