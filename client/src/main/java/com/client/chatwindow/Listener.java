@@ -67,12 +67,13 @@ public class Listener implements Runnable{
                 break;
             }
             if (message != null) {
+                logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
                 switch (message.getType()){
                     case "USER": controller.addToChat(message); break;
                     case "NOTIFICATION": controller.newUserNotification(message); break;
                     case "SERVER": controller.addAsServer(message); break;
                     case "CONNECTED" : controller.setUserList(message); break;
-                    case "DISCONNECTD" : controller.setUserList(message); break;
+                    case "DISCONNECTED" : controller.setUserList(message); break;
                 }
             }
         }

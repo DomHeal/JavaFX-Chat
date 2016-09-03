@@ -16,15 +16,14 @@ public class Server {
 
     /* Setting up variables */
     private static final int PORT = 9001;
-    private static final HashMap<String, User> names = new HashMap<String, User>();
-    private static HashSet<ObjectOutputStream> writers = new HashSet<ObjectOutputStream>();
-    private static ArrayList<User> users = new ArrayList<User>();
+    private static final HashMap<String, User> names = new HashMap<>();
+    private static HashSet<ObjectOutputStream> writers = new HashSet<>();
+    private static ArrayList<User> users = new ArrayList<>();
+    static Logger logger = LoggerFactory.getLogger(Server.class);
 
     public static void main(String[] args) throws Exception {
-        System.out.println("The chat server is running.");
+        logger.info("The chat server is running.");
         ServerSocket listener = new ServerSocket(PORT);
-        System.setProperty("java.util.logging.SimpleFormatter.format",
-                "%1$tF %1$tT %4$s %2$s %5$s%6$s%n");
 
         try {
             while (true) {
@@ -35,7 +34,6 @@ public class Server {
         } finally {
             listener.close();
         }
-
     }
 
 
@@ -47,6 +45,7 @@ public class Server {
         private OutputStream os;
         private ObjectOutputStream output;
         Logger logger = LoggerFactory.getLogger(Handler.class);
+        private User user;
 
         public Handler(Socket socket) throws IOException {
             this.socket = socket;
@@ -77,9 +76,7 @@ public class Server {
                         }
                     }
                 }
-            } catch (IOException e) {
-                System.out.println(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             } finally {
                 closeConnections();
@@ -92,7 +89,7 @@ public class Server {
                 this.name = firstMessage.getName();
                 writers.add(output);
 
-                User user = new User();
+                user = new User();
                 user.setName(firstMessage.getName());
                 user.setPicture(firstMessage.getPicture());
 
@@ -115,12 +112,14 @@ public class Server {
 
 
         private synchronized void removeFromList(String name) throws IOException {
+            logger.info("removeFromList() method Enter");
             Message msg = new Message();
-            msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
+            msg.setMsg("has left the chat.");
             msg.setType("DISCONNECTED");
             msg.setName("SERVER");
             msg.setUserlist(names);
             write(msg);
+            logger.info("removeFromList() method Exit");
         }
 
         /* For displaying that a user has joined the server */
@@ -154,23 +153,33 @@ public class Server {
          * Once a user has been disconnected, we close the open connections and remove the writers
          */
         private synchronized void closeConnections() {
+            logger.info("closeConnections() method Enter");
+            logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
             if (name != null) {
                 names.remove(name);
                 logger.info("User: " + name + " has been removed!");
             }
+            if (user != null){
+                users.remove(user);
+                logger.info("User object: " + user + " has been removed!");
+            }
             if (output != null) {
                 writers.remove(output);
-            }
-            try {
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                logger.info("Writer: " + output + " has been removed!");
+                try {
+                    output.close();
+                    logger.info("Closed a connection!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             try {
                 removeFromList(name);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
+            logger.info("closeConnections() method Exit");
         }
     }
 }

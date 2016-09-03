@@ -26,6 +26,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,6 +46,8 @@ public class ChatController implements Initializable{
     @FXML BorderPane borderPane;
     private double xOffset;
     private double yOffset;
+    Logger logger = LoggerFactory.getLogger(ChatController.class);
+
 
     public void sendButtonAction() throws IOException {
         String msg = messageBox.getText();
@@ -54,6 +58,7 @@ public class ChatController implements Initializable{
     }
 
     public synchronized void addToChat(Message msg) {
+        setUserList(msg);
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
@@ -129,6 +134,7 @@ public class ChatController implements Initializable{
     }
 
     public void setUserList(Message msg) {
+        logger.info("setUserList() method Enter");
         clearUserList();
         Platform.runLater(() -> {
             ObservableList<User> users = FXCollections.observableList(msg.getUsers());
@@ -139,8 +145,8 @@ public class ChatController implements Initializable{
             statusList.setMouseTransparent( true );
             statusList.setFocusTraversable( false );
             setOnlineLabel(String.valueOf(msg.getUserlist().size()));
-
         });
+        logger.info("setUserList() method Exit");
     }
 
     /* Currently not implemented */
