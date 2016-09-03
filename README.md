@@ -29,8 +29,3 @@ Notifications using Tray-Notifications Library
   <li>Sounds & External CSS</li>
   <li>Server GUI</li>
 </ul>
-
-<h3>Known Issues </h3>
-<ul>
-  <li>Messages dissapear after screen is filled</li>
-</ul>
