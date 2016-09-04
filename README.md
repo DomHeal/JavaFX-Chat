@@ -24,13 +24,8 @@ Notifications using Tray-Notifications Library
   <li><strike>Connected Userlist</strike></li>
   <li><strike>Basic Animation</strike></li>
   <li>Profile Picture (<strike>Presets</strike> / Upload)</li>
-  <li>Able to Set Status (Away / Busy / Online)</li>
+  <li><strike>Able to Set Status (Away / Busy / Online)</strike></li>
   <li>Voice Communication</li>
   <li>Sounds & External CSS</li>
   <li>Server GUI</li>
-</ul>
-
-<h3>Known Issues </h3>
-<ul>
-  <li>Messages dissapear after screen is filled</li>
 </ul>
