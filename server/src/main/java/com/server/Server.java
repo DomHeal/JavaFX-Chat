@@ -64,7 +64,7 @@ public class Server {
                 Message firstMessage = (Message) input.readObject();
                 checkDuplicateUsername(firstMessage);
 
-                while (true) {
+                while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
                         logger.info(inputmsg.getName() + " has " + names.size());
@@ -116,8 +116,9 @@ public class Server {
 
                 logger.info(firstMessage.getName() + " has been added to the list");
                 try {
+                    sendNotification(firstMessage);
                     addToList(firstMessage);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 logger.info(name + " added");
@@ -125,6 +126,15 @@ public class Server {
                 closeConnections();
                 logger.info(firstMessage.getName() + " is already connected");
             }
+        }
+
+        private void sendNotification(Message firstMessage) throws IOException {
+            Message msg = new Message();
+            msg.setMsg("has joined the chat.");
+            msg.setType(MessageType.NOTIFICATION);
+            msg.setName(firstMessage.getName());
+            msg.setPicture(firstMessage.getPicture());
+            write(msg);
         }
 
 

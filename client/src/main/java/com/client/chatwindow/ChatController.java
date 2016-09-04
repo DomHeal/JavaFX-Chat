@@ -2,6 +2,8 @@ package com.client.chatwindow;
 
 import com.client.login.MainLauncher;
 import com.messages.*;
+import com.traynotifications.animations.AnimationType;
+import com.traynotifications.notification.TrayNotification;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,7 +27,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -161,17 +165,17 @@ public class ChatController implements Initializable {
         logger.info("setUserList() method Exit");
     }
 
-    /* Currently not implemented */
+    /* Displays Notification when a user joins */
     public void newUserNotification(Message msg) {
         Platform.runLater(() -> {
-//            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() +".png").toString(),50,50,false,false);
-//            TrayNotification tray = new TrayNotification();
-//            tray.setTitle("A new user has joined!");
-//            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
-//            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-//            tray.setAnimationType(AnimationType.POPUP);
-//            tray.setImage(profileImg);
-//            tray.showAndDismiss(Duration.seconds(5));
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() +".png").toString(),50,50,false,false);
+            TrayNotification tray = new TrayNotification();
+            tray.setTitle("A new user has joined!");
+            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
+            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+            tray.setAnimationType(AnimationType.POPUP);
+            tray.setImage(profileImg);
+            tray.showAndDismiss(Duration.seconds(5));
         });
     }
 

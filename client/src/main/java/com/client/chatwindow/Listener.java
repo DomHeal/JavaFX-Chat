@@ -14,6 +14,8 @@ import static com.messages.MessageType.CONNECTED;
 
 public class Listener implements Runnable{
 
+    private static final String HASCONNECTED = "has connected";
+
     private static String picture;
     private Socket socket;
     public String hostname;
@@ -51,7 +53,7 @@ public class Listener implements Runnable{
         try {
             connect();
             logger.info("Sockets in and out ready!");
-            while (true) {
+            while (socket.isConnected()) {
                 Message message = null;
                 message = (Message) input.readObject();
 
@@ -117,7 +119,7 @@ public class Listener implements Runnable{
         Message createMessage = new Message();
         createMessage.setName(username);
         createMessage.setType(CONNECTED);
-        createMessage.setMsg("has connected!");
+        createMessage.setMsg(HASCONNECTED);
         createMessage.setPicture(picture);
         oos.writeObject(createMessage);
     }

@@ -10,7 +10,7 @@ import javafx.util.Callback;
 ;
 
 /**
- * This class is for rendering for status of the clients - this is for future development
+ * This class is for rendering for status of the clients
  */
 class StatusCellRenderer implements Callback<ListView<User>, ListCell<User>> {
     @Override

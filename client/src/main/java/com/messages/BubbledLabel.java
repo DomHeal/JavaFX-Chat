@@ -80,17 +80,6 @@ public class BubbledLabel extends Label {
 				}else{
 					shapeIt();
 				}
-				/*
-				if(arg2.getClass().isAssignableFrom(Bubble.class)){ // i do no need to check for this actuall is waste of time
-					systemCall = false;
-					return;
-				}else{
-					// not the required shape
-					systemCall = true;
-					setShape(new Bubble(bs));
-					System.gc();
-				}*/
-
 			}
 		});
 
