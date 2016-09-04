@@ -1,6 +1,8 @@
 package com.server;
 
 import com.messages.Message;
+import com.messages.MessageType;
+import com.messages.Status;
 import com.messages.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,11 +69,14 @@ public class Server {
                     if (inputmsg != null) {
                         logger.info(inputmsg.getName() + " has " + names.size());
                         switch (inputmsg.getType()) {
-                            case "USER":
+                            case USER:
                                 write(inputmsg);
                                 break;
-                            case "CONNECTED":
+                            case CONNECTED:
                                 addToList(inputmsg);
+                                break;
+                            case STATUS:
+                                changeStatus(inputmsg);
                                 break;
                         }
                     }
@@ -83,6 +88,17 @@ public class Server {
             }
         }
 
+        private void changeStatus(Message inputmsg) throws IOException {
+            logger.debug(inputmsg.getName() + " has changed status to  " + inputmsg.getStatus());
+            Message msg = new Message();
+            msg.setName(user.getName());
+            msg.setType(MessageType.STATUS);
+            msg.setMsg("");
+            User userObj = names.get(name);
+            userObj.setStatus(inputmsg.getStatus());
+            write(msg);
+        }
+
         private synchronized void checkDuplicateUsername(Message firstMessage) {
             logger.info(firstMessage.getName() + " is trying to connect");
             if (!names.containsKey(firstMessage.getName())) {
@@ -91,6 +107,7 @@ public class Server {
 
                 user = new User();
                 user.setName(firstMessage.getName());
+                user.setStatus(Status.ONLINE);
                 user.setPicture(firstMessage.getPicture());
 
                 names.put(name, user);
@@ -111,22 +128,24 @@ public class Server {
         }
 
 
-        private synchronized void removeFromList(String name) throws IOException {
+        private void removeFromList(String name) throws IOException {
             logger.info("removeFromList() method Enter");
             Message msg = new Message();
             msg.setMsg("has left the chat.");
-            msg.setType("DISCONNECTED");
+            msg.setType(MessageType.DISCONNECTED);
             msg.setName("SERVER");
             msg.setUserlist(names);
             write(msg);
             logger.info("removeFromList() method Exit");
         }
 
-        /* For displaying that a user has joined the server */
+        /*
+         * For displaying that a user has joined the server
+         */
         private void addToList(Message msg) throws IOException {
             msg = new Message();
             msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
-            msg.setType("CONNECTED");
+            msg.setType(MessageType.CONNECTED);
             msg.setName("SERVER");
             write(msg);
         }

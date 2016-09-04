@@ -1,11 +1,10 @@
 package com.client.chatwindow;
 
 import com.client.login.MainLauncher;
-import com.messages.BubbleSpec;
-import com.messages.BubbledLabel;
-import com.messages.Message;
-import com.messages.User;
+import com.messages.*;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -16,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -34,16 +34,27 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class ChatController implements Initializable{
+public class ChatController implements Initializable {
 
-    @FXML private TextArea messageBox;
-    @FXML private Label usernameLabel;
-    @FXML private Label onlineCountLabel;
-    @FXML private ListView userList;
-    @FXML private ImageView userImageView;
-    @FXML ListView chatPane;
-    @FXML ListView statusList;
-    @FXML BorderPane borderPane;
+    @FXML
+    private TextArea messageBox;
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Label onlineCountLabel;
+    @FXML
+    private ListView userList;
+    @FXML
+    private ImageView userImageView;
+    @FXML
+    ListView chatPane;
+    @FXML
+    ListView statusList;
+    @FXML
+    BorderPane borderPane;
+    @FXML
+    ComboBox statusComboBox;
+
     private double xOffset;
     private double yOffset;
     Logger logger = LoggerFactory.getLogger(ChatController.class);
@@ -51,14 +62,13 @@ public class ChatController implements Initializable{
 
     public void sendButtonAction() throws IOException {
         String msg = messageBox.getText();
-        if(!messageBox.getText().isEmpty()) {
+        if (!messageBox.getText().isEmpty()) {
             Listener.send(msg);
-            messageBox.setText("");
+            messageBox.clear();
         }
     }
 
     public synchronized void addToChat(Message msg) {
-        setUserList(msg);
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
@@ -100,7 +110,7 @@ public class ChatController implements Initializable{
                 bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
                         null, null)));
                 HBox x = new HBox();
-                x.setMaxWidth(chatPane.getWidth()-20);
+                x.setMaxWidth(chatPane.getWidth() - 20);
                 x.setAlignment(Pos.TOP_RIGHT);
                 bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
                 x.getChildren().addAll(bl6, profileImage);
@@ -111,7 +121,7 @@ public class ChatController implements Initializable{
         };
         yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
 
-        if (msg.getName().equals(usernameLabel.getText())){
+        if (msg.getName().equals(usernameLabel.getText())) {
             Thread t2 = new Thread(yourMessages);
             t2.setDaemon(true);
             t2.start();
@@ -138,15 +148,14 @@ public class ChatController implements Initializable{
 
     public void setUserList(Message msg) {
         logger.info("setUserList() method Enter");
-        clearUserList();
         Platform.runLater(() -> {
             ObservableList<User> users = FXCollections.observableList(msg.getUsers());
             userList.setItems(users);
             userList.setCellFactory(new CellRenderer());
             statusList.setItems(users);
             statusList.setCellFactory(new StatusCellRenderer());
-            statusList.setMouseTransparent( true );
-            statusList.setFocusTraversable( false );
+            statusList.setMouseTransparent(true);
+            statusList.setFocusTraversable(false);
             setOnlineLabel(String.valueOf(msg.getUserlist().size()));
         });
         logger.info("setUserList() method Exit");
@@ -166,20 +175,15 @@ public class ChatController implements Initializable{
         });
     }
 
-    public void clearUserList() {
-        Platform.runLater(() -> {
-            userList.getItems().clear();
-        });
-    }
-
     public void sendMethod(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             sendButtonAction();
-            messageBox.setText("");
+            messageBox.clear();
         }
     }
+
     @FXML
-    public void closeApplication(){
+    public void closeApplication() {
         Platform.exit();
         System.exit(0);
     }
@@ -232,15 +236,31 @@ public class ChatController implements Initializable{
         borderPane.setOnMouseReleased(event -> {
             borderPane.setCursor(Cursor.DEFAULT);
         });
+
+        statusComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                try {
+                    System.out.println(Status.valueOf(newValue.toUpperCase()));
+                    Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     public void setImageLabel(String selectedPicture) {
         switch (selectedPicture) {
-            case "Dominic": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString()));
+            case "Dominic":
+                this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString()));
                 break;
-            case "Sarah": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/sarah.png").toString()));
+            case "Sarah":
+                this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/sarah.png").toString()));
                 break;
-            case "Default": this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.png").toString()));
+            case "Default":
+                this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.png").toString()));
                 break;
         }
     }

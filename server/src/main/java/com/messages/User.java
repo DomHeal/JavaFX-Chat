@@ -25,14 +25,14 @@ public class User implements Serializable {
         this.picture = picture;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
     String picture;
-    String status;
+    Status status;
 }

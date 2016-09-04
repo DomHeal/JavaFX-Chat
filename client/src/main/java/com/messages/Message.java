@@ -7,11 +7,13 @@ import java.util.HashMap;
 public class Message implements Serializable {
 
     private String name;
-    private String type;
+    private MessageType type;
     private String msg;
     private int count;
     private ArrayList<User> list;
     private ArrayList<User> users;
+
+    private Status status;
 
     public String getPicture() {
         return picture;
@@ -39,11 +41,11 @@ public class Message implements Serializable {
         this.msg = msg;
     }
 
-    public String getType() {
+    public MessageType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(MessageType type) {
         this.type = type;
     }
 
@@ -74,5 +76,13 @@ public class Message implements Serializable {
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

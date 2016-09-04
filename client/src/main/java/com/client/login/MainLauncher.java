@@ -25,7 +25,6 @@ public class MainLauncher extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(mainScene);
         primaryStage.show();
-        primaryStage.setResizable(true);
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 

@@ -25,7 +25,7 @@ class StatusCellRenderer implements Callback<ListView<User>, ListCell<User>> {
                 }
                 if (user != null) {
                     ImageView imageView = new ImageView();
-                    Image image = new Image(getClass().getClassLoader().getResource("images/" + "online" + ".png").toString(), 16, 16, false, false);
+                    Image image = new Image(getClass().getClassLoader().getResource("images/" + user.getStatus() + ".png").toString(), 16, 16, false, false);
                     imageView.setImage(image);
                     setGraphic(imageView);
                 }
