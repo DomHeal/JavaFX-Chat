@@ -26,6 +26,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -176,6 +178,14 @@ public class ChatController implements Initializable {
             tray.setAnimationType(AnimationType.POPUP);
             tray.setImage(profileImg);
             tray.showAndDismiss(Duration.seconds(5));
+            try {
+                Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                mediaPlayer.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         });
     }
 
