@@ -91,7 +91,7 @@ public class ChatController implements Initializable {
                 HBox x = new HBox();
                 bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
                 x.getChildren().addAll(profileImage, bl6);
-                System.out.println("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
+                logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
                 setOnlineLabel(Integer.toString(msg.getOnlineCount()));
                 return x;
             }
@@ -255,7 +255,6 @@ public class ChatController implements Initializable {
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
                 try {
-                    System.out.println(Status.valueOf(newValue.toUpperCase()));
                     Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
                 } catch (IOException e) {
                     e.printStackTrace();
