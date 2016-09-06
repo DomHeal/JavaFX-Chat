@@ -2,12 +2,14 @@
     -fx-cell-size: 50 ;
     -fx-animated: true;
     -fx-padding: 1px;
+}
 
-
+.list-cell:hover{
+    -fx-background-color: #dbdbdb;
 }
 
 .list-view {
-
+    -fx-border-image-width: 0;
 }
 
 #statusList {

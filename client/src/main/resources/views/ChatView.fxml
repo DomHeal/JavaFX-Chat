@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -8,6 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
+
 <BorderPane fx:id="borderPane" maxHeight="620.0" maxWidth="1040.0" prefHeight="620.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.chatwindow.ChatController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
@@ -89,9 +94,9 @@
             </ImageView>
          </center>
          <right>
-            <HBox prefHeight="24.0" prefWidth="30.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="24.0" prefWidth="30.0" stylesheets="@../styles/ButtonStyle.css" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
                      <image>
                         <Image url="@../images/settings.png" />
                      </image>
@@ -102,7 +107,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="22.0" fitWidth="21.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="21.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" styleClass="button">
                      <image>
                         <Image url="@../images/close_normal.png" />
                      </image>

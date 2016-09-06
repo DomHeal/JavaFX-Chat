@@ -24,7 +24,7 @@ class CellRenderer implements Callback<ListView<User>,ListCell<User>>{
                 if (user != null) {
                     setText(user.getName());
                     ImageView imageView = new ImageView();
-                    Image image = new Image(getClass().getClassLoader().getResource("images/" + user.getPicture() + ".png").toString(),50,50,false,false);
+                    Image image = new Image(getClass().getClassLoader().getResource("images/" + user.getPicture() + ".png").toString(),50,50,true,true);
                     setText(user.getName());
                     imageView.setImage(image);
                     setGraphic(imageView);

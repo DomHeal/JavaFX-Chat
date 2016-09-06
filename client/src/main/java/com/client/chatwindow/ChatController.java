@@ -82,12 +82,9 @@ public class ChatController implements Initializable {
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
-
                 BubbledLabel bl6 = new BubbledLabel();
-
                 bl6.setText(msg.getName() + ": " + msg.getMsg());
-                bl6.setBackground(new Background(new BackgroundFill(Color.WHITE,
-                        null, null)));
+                bl6.setBackground(new Background(new BackgroundFill(Color.WHITE,null, null)));
                 HBox x = new HBox();
                 bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
                 x.getChildren().addAll(profileImage, bl6);
@@ -102,7 +99,6 @@ public class ChatController implements Initializable {
         });
 
         Task<HBox> yourMessages = new Task<HBox>() {
-
             @Override
             public HBox call() throws Exception {
                 Image image = userImageView.getImage();
@@ -136,8 +132,6 @@ public class ChatController implements Initializable {
             t.setDaemon(true);
             t.start();
         }
-
-        System.out.println(msg.getName() + ": " + msg.getMsg());
     }
 
     public void setUsernameLabel(String username) {
@@ -192,7 +186,6 @@ public class ChatController implements Initializable {
     public void sendMethod(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             sendButtonAction();
-            messageBox.clear();
         }
     }
 
