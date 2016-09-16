@@ -46,7 +46,7 @@
          <children>
             <Pane prefHeight="49.0" prefWidth="217.0">
                <children>
-                  <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="231.0" stylesheets="@../styles/ListViewStyle.css">
+                  <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="217.0" stylesheets="@../styles/ListViewStyle.css">
                      <children>
                         <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
                            <font>
@@ -59,7 +59,7 @@
                               <Insets bottom="10.0" />
                            </opaqueInsets>
                         </Label>
-                        <Label fx:id="onlineCountLabel" prefHeight="50.0" prefWidth="117.0" text="0" textFill="#fc6747">
+                        <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#fc6747">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
