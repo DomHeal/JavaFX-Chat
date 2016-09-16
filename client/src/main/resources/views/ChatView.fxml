@@ -73,7 +73,6 @@
             </Pane>
             <HBox fx:id="listHbox" style="-fx-border-width: 5;" stylesheets="@../styles/ListViewStyle.css">
                <children>
-                  <ListView fx:id="statusList" focusTraversable="false" prefHeight="473.0" prefWidth="16.0" style="-fx-border-image-width: 0;" stylesheets="@../styles/ListViewStyle.css" />
                   <ListView fx:id="userList" focusTraversable="false" prefHeight="502.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@../styles/ListViewStyle.css">
             </ListView>
                </children>

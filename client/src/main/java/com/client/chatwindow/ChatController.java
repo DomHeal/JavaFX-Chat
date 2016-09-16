@@ -2,6 +2,8 @@ package com.client.chatwindow;
 
 import com.client.login.MainLauncher;
 import com.messages.*;
+import com.messages.bubble.BubbleSpec;
+import com.messages.bubble.BubbledLabel;
 import com.traynotifications.animations.AnimationType;
 import com.traynotifications.notification.TrayNotification;
 import javafx.application.Platform;
@@ -42,24 +44,15 @@ import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
 
-    @FXML
-    private TextArea messageBox;
-    @FXML
-    private Label usernameLabel;
-    @FXML
-    private Label onlineCountLabel;
-    @FXML
-    private ListView userList;
-    @FXML
-    private ImageView userImageView;
-    @FXML
-    ListView chatPane;
-    @FXML
-    ListView statusList;
-    @FXML
-    BorderPane borderPane;
-    @FXML
-    ComboBox statusComboBox;
+    @FXML private TextArea messageBox;
+    @FXML private Label usernameLabel;
+    @FXML private Label onlineCountLabel;
+    @FXML private ListView userList;
+    @FXML private ImageView userImageView;
+    @FXML ListView chatPane;
+    @FXML ListView statusList;
+    @FXML BorderPane borderPane;
+    @FXML ComboBox statusComboBox;
 
     private double xOffset;
     private double yOffset;
@@ -152,10 +145,6 @@ public class ChatController implements Initializable {
             ObservableList<User> users = FXCollections.observableList(msg.getUsers());
             userList.setItems(users);
             userList.setCellFactory(new CellRenderer());
-            statusList.setItems(users);
-            statusList.setCellFactory(new StatusCellRenderer());
-            statusList.setMouseTransparent(true);
-            statusList.setFocusTraversable(false);
             setOnlineLabel(String.valueOf(msg.getUserlist().size()));
         });
         logger.info("setUserList() method Exit");
