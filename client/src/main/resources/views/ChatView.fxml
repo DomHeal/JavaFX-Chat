@@ -15,73 +15,59 @@
 
 <BorderPane fx:id="borderPane" maxHeight="620.0" maxWidth="1040.0" prefHeight="620.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.chatwindow.ChatController">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_LEFT">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <children>
-            <BorderPane>
-               <bottom>
-                  <HBox prefHeight="18.0" prefWidth="803.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="78.0" prefWidth="657.0" promptText="Enter Message..." scaleShape="false">
-                           <font>
-                              <Font name="SansSerif Regular" size="14.0" />
-                           </font>
-                        </TextArea>
-                        <Button fx:id="buttonSend" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="140.0" scaleShape="false" text="Send" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-               </bottom>
-               <top>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="496.0" prefWidth="809.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" BorderPane.alignment="CENTER">
-                     <content>
-                        <ListView fx:id="chatPane" prefHeight="200.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-               </top>
-            </BorderPane>
-         </children>
-      </VBox>
-   </center>
-   <left>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="49.0" prefWidth="217.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" prefHeight="496.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0">
+               <content>
+                  <ListView fx:id="chatPane" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="217.0" stylesheets="@../styles/ListViewStyle.css">
-                     <children>
-                        <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
-                           <font>
-                              <Font name="SansSerif Regular" size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                           <opaqueInsets>
-                              <Insets bottom="10.0" />
-                           </opaqueInsets>
-                        </Label>
-                        <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#fc6747">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <font>
-                              <Font name="SansSerif Regular" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-            <HBox fx:id="listHbox" style="-fx-border-width: 5;" stylesheets="@../styles/ListViewStyle.css">
-               <children>
-                  <ListView fx:id="userList" focusTraversable="false" prefHeight="502.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@../styles/ListViewStyle.css">
-            </ListView>
+                  <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="16.0" prefWidth="698.0" promptText="Enter Message..." scaleShape="false">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </TextArea>
+                  <Button fx:id="buttonSend" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="140.0" scaleShape="false" text="Send" textAlignment="CENTER" />
                </children>
             </HBox>
          </children>
       </VBox>
+   </center>
+   <left>
+      <VBox maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="onlineUsersHbox" prefHeight="50.0" prefWidth="217.0" stylesheets="@../styles/ListViewStyle.css">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets bottom="10.0" />
+                     </opaqueInsets>
+                  </Label>
+                  <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#fc6747">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ListView fx:id="userList" focusTraversable="false" maxHeight="1.7976931348623157E308" prefHeight="495.0" prefWidth="217.0" style="-fx-border-image-width: 0;" stylesheets="@../styles/ListViewStyle.css">
+            </ListView>
+         </children>
+      </VBox>
    </left>
    <top>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1040.0" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
          <center>
             <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
