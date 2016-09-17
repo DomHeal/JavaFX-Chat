@@ -2,6 +2,7 @@ package com.client.login;
 
 import com.client.chatwindow.ChatController;
 import com.client.chatwindow.Listener;
+import com.client.util.ResizeHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -81,12 +82,14 @@ public class LoginController implements Initializable {
             stage.setWidth(1040);
             stage.setHeight(620);
 
-            stage.setResizable(false);
             stage.setOnCloseRequest((WindowEvent e) -> {
                 Platform.exit();
                 System.exit(0);
             });
             stage.setScene(this.scene);
+            stage.setMinWidth(800);
+            stage.setMinHeight(300);
+            ResizeHelper.addResizeListener(stage);
             stage.centerOnScreen();
             con.setUsernameLabel(usernameTextfield.getText());
             con.setImageLabel(selectedPicture.getText());
