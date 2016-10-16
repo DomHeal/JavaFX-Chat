@@ -14,6 +14,11 @@ public class Message implements Serializable {
     private ArrayList<User> users;
 
     private Status status;
+    private byte[] voiceMsg;
+
+    public byte[] getVoiceMsg() {
+        return voiceMsg;
+    }
 
     public String getPicture() {
         return picture;
@@ -84,5 +89,9 @@ public class Message implements Serializable {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setVoiceMsg(byte[] voiceMsg) {
+        this.voiceMsg = voiceMsg;
     }
 }

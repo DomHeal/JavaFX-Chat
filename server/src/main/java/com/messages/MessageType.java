@@ -7,5 +7,5 @@ package com.messages;
  * Github: www.github.com/DomHeal
  */
 public enum MessageType {
-    DISCONNECTED, CONNECTED, STATUS, USER, SERVER, NOTIFICATION
+    DISCONNECTED, CONNECTED, STATUS, USER, SERVER, NOTIFICATION, VOICE
 }

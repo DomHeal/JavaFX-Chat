@@ -1,7 +1,13 @@
 package com.client.chatwindow;
 
 import com.client.login.MainLauncher;
-import com.messages.*;
+import com.client.util.VoicePlayback;
+import com.client.util.VoiceRecorder;
+import com.client.util.VoiceUtil;
+import com.messages.Message;
+import com.messages.MessageType;
+import com.messages.Status;
+import com.messages.User;
 import com.messages.bubble.BubbleSpec;
 import com.messages.bubble.BubbledLabel;
 import com.traynotifications.animations.AnimationType;
@@ -19,10 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -49,10 +52,15 @@ public class ChatController implements Initializable {
     @FXML private Label onlineCountLabel;
     @FXML private ListView userList;
     @FXML private ImageView userImageView;
+    @FXML private Button recordBtn;
     @FXML ListView chatPane;
     @FXML ListView statusList;
     @FXML BorderPane borderPane;
     @FXML ComboBox statusComboBox;
+    @FXML ImageView microphoneImageView;
+
+    Image microphoneActiveImage = new Image(getClass().getClassLoader().getResource("images/microphone-active.png").toString());
+    Image microphoneInactiveImage = new Image(getClass().getClassLoader().getResource("images/microphone.png").toString());
 
     private double xOffset;
     private double yOffset;
@@ -67,6 +75,24 @@ public class ChatController implements Initializable {
         }
     }
 
+    public void recordVoiceMessage() throws IOException {
+        if (VoiceUtil.isRecording()) {
+            Platform.runLater(() -> {
+                microphoneImageView.setImage(microphoneInactiveImage);
+                    }
+            );
+            VoiceUtil.setRecording(false);
+        } else {
+            Platform.runLater(() -> {
+                microphoneImageView.setImage(microphoneActiveImage);
+
+                    }
+            );
+            VoiceRecorder.captureAudio();
+        }
+    }
+
+
     public synchronized void addToChat(Message msg) {
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
@@ -76,7 +102,14 @@ public class ChatController implements Initializable {
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
                 BubbledLabel bl6 = new BubbledLabel();
-                bl6.setText(msg.getName() + ": " + msg.getMsg());
+                if (msg.getType() == MessageType.VOICE){
+                    ImageView imageview = new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString()));
+                    bl6.setGraphic(imageview);
+                    bl6.setText("Sent a voice message!");
+                    VoicePlayback.playAudio(msg.getVoiceMsg());
+                }else {
+                    bl6.setText(msg.getName() + ": " + msg.getMsg());
+                }
                 bl6.setBackground(new Background(new BackgroundFill(Color.WHITE,null, null)));
                 HBox x = new HBox();
                 bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
@@ -100,8 +133,13 @@ public class ChatController implements Initializable {
                 profileImage.setFitWidth(32);
 
                 BubbledLabel bl6 = new BubbledLabel();
-
-                bl6.setText(msg.getMsg());
+                if (msg.getType() == MessageType.VOICE){
+                    bl6.setGraphic(new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString())));
+                    bl6.setText("Sent a voice message!");
+                    VoicePlayback.playAudio(msg.getVoiceMsg());
+                }else {
+                    bl6.setText(msg.getMsg());
+                }
                 bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
                         null, null)));
                 HBox x = new HBox();
@@ -126,7 +164,6 @@ public class ChatController implements Initializable {
             t.start();
         }
     }
-
     public void setUsernameLabel(String username) {
         this.usernameLabel.setText(username);
     }

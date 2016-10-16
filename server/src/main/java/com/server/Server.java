@@ -72,6 +72,9 @@ public class Server {
                             case USER:
                                 write(inputmsg);
                                 break;
+                            case VOICE:
+                                write(inputmsg);
+                                break;
                             case CONNECTED:
                                 addToList(inputmsg);
                                 break;
