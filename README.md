@@ -25,7 +25,10 @@ Notifications using Tray-Notifications Library
   <li><strike>Basic Animation</strike></li>
   <li>Profile Picture (<strike>Presets</strike> / Upload)</li>
   <li><strike>Able to Set Status (Away / Busy / Online)</strike></li>
-  <li>Voice Communication</li>
+  <li><strike>Voice Communication</strike></li>
   <li>Sounds & External CSS</li>
   <li>Server GUI</li>
 </ul>
+
+<h3> New Features! - Voice Messages </h3>
+<img src="https://github.com/DomHeal/JavaFX-Chat/blob/master/screenshots/voicemessage.png?raw=true"/>
