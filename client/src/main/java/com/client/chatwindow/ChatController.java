@@ -271,13 +271,24 @@ public class ChatController implements Initializable {
         });
 
         statusComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 try {
                     Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        /* Added to prevent the enter from adding a new line to inputMessageBox */
+        messageBox.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    sendButtonAction();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ke.consume();
             }
         });
 
