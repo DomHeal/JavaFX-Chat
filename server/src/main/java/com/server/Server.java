@@ -63,7 +63,7 @@ public class Server {
                 checkDuplicateUsername(firstMessage);
                 writers.add(output);
                 sendNotification(firstMessage);
-                addToList(firstMessage);
+                addToList();
 
                 while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
@@ -77,7 +77,7 @@ public class Server {
                                 write(inputmsg);
                                 break;
                             case CONNECTED:
-                                addToList(inputmsg);
+                                addToList();
                                 break;
                             case STATUS:
                                 changeStatus(inputmsg);
@@ -92,7 +92,7 @@ public class Server {
             }
         }
 
-        private void changeStatus(Message inputmsg) throws IOException {
+        private Message changeStatus(Message inputmsg) throws IOException {
             logger.debug(inputmsg.getName() + " has changed status to  " + inputmsg.getStatus());
             Message msg = new Message();
             msg.setName(user.getName());
@@ -101,6 +101,7 @@ public class Server {
             User userObj = names.get(name);
             userObj.setStatus(inputmsg.getStatus());
             write(msg);
+            return msg;
         }
 
         private synchronized void checkDuplicateUsername(Message firstMessage) throws DuplicateUsernameException {
@@ -122,17 +123,18 @@ public class Server {
             }
         }
 
-        private void sendNotification(Message firstMessage) throws IOException {
+        private Message sendNotification(Message firstMessage) throws IOException {
             Message msg = new Message();
             msg.setMsg("has joined the chat.");
             msg.setType(MessageType.NOTIFICATION);
             msg.setName(firstMessage.getName());
             msg.setPicture(firstMessage.getPicture());
             write(msg);
+            return msg;
         }
 
 
-        private void removeFromList(String name) throws IOException {
+        private Message removeFromList() throws IOException {
             logger.debug("removeFromList() method Enter");
             Message msg = new Message();
             msg.setMsg("has left the chat.");
@@ -141,17 +143,19 @@ public class Server {
             msg.setUserlist(names);
             write(msg);
             logger.debug("removeFromList() method Exit");
+            return msg;
         }
 
         /*
          * For displaying that a user has joined the server
          */
-        private void addToList(Message msg) throws IOException {
-            msg = new Message();
+        private Message addToList() throws IOException {
+            Message msg = new Message();
             msg.setMsg("Welcome, You have now joined the server! Enjoy chatting!");
             msg.setType(MessageType.CONNECTED);
             msg.setName("SERVER");
             write(msg);
+            return msg;
         }
 
         /*
@@ -187,7 +191,7 @@ public class Server {
                 logger.info("User object: " + user + " has been removed!");
             }
             try {
-                removeFromList(name);
+                removeFromList();
             } catch (Exception e) {
                 e.printStackTrace();
             }
