@@ -1,5 +1,6 @@
 package com.server;
 
+import com.exception.DuplicateUsernameException;
 import com.messages.Message;
 import com.messages.MessageType;
 import com.messages.Status;
@@ -42,11 +43,7 @@ public class Server {
     private static class Handler extends Thread {
         private String name;
         private Socket socket;
-        private InputStream is;
-        private ObjectInputStream input;
-        private OutputStream os;
-        private ObjectOutputStream output;
-        Logger logger = LoggerFactory.getLogger(Handler.class);
+        private Logger logger = LoggerFactory.getLogger(Handler.class);
         private User user;
 
         public Handler(Socket socket) throws IOException {
@@ -54,15 +51,19 @@ public class Server {
         }
 
         public void run() {
-            try {
-                logger.info("Attempting to connect a user...");
-                is = socket.getInputStream();
-                input = new ObjectInputStream(is);
-                os = socket.getOutputStream();
-                output = new ObjectOutputStream(os);
+            logger.info("Attempting to connect a user...");
+            try (
+                InputStream is = socket.getInputStream();
+                ObjectInputStream input = new ObjectInputStream(is);
+                OutputStream os = socket.getOutputStream();
+                ObjectOutputStream output = new ObjectOutputStream(os)
+            ){
 
                 Message firstMessage = (Message) input.readObject();
                 checkDuplicateUsername(firstMessage);
+                writers.add(output);
+                sendNotification(firstMessage);
+                addToList(firstMessage);
 
                 while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
@@ -84,7 +85,7 @@ public class Server {
                         }
                     }
                 }
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException | DuplicateUsernameException | ClassNotFoundException e) {
                 e.printStackTrace();
             } finally {
                 closeConnections();
@@ -102,32 +103,22 @@ public class Server {
             write(msg);
         }
 
-        private synchronized void checkDuplicateUsername(Message firstMessage) {
+        private synchronized void checkDuplicateUsername(Message firstMessage) throws DuplicateUsernameException {
             logger.info(firstMessage.getName() + " is trying to connect");
             if (!names.containsKey(firstMessage.getName())) {
                 this.name = firstMessage.getName();
-                writers.add(output);
-
                 user = new User();
                 user.setName(firstMessage.getName());
                 user.setStatus(Status.ONLINE);
                 user.setPicture(firstMessage.getPicture());
 
+                users.add(user);
                 names.put(name, user);
 
-                users.add(user);
-
-                logger.info(firstMessage.getName() + " has been added to the list");
-                try {
-                    sendNotification(firstMessage);
-                    addToList(firstMessage);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                logger.info(name + " added");
+                logger.info(name + " has been added to the list");
             } else {
-                closeConnections();
-                logger.info(firstMessage.getName() + " is already connected");
+                logger.error(firstMessage.getName() + " is already connected");
+                throw new DuplicateUsernameException(firstMessage.getName() + " is already connected");
             }
         }
 
@@ -142,14 +133,14 @@ public class Server {
 
 
         private void removeFromList(String name) throws IOException {
-            logger.info("removeFromList() method Enter");
+            logger.debug("removeFromList() method Enter");
             Message msg = new Message();
             msg.setMsg("has left the chat.");
             msg.setType(MessageType.DISCONNECTED);
             msg.setName("SERVER");
             msg.setUserlist(names);
             write(msg);
-            logger.info("removeFromList() method Exit");
+            logger.debug("removeFromList() method Exit");
         }
 
         /*
@@ -185,7 +176,7 @@ public class Server {
          * Once a user has been disconnected, we close the open connections and remove the writers
          */
         private synchronized void closeConnections() {
-            logger.info("closeConnections() method Enter");
+            logger.debug("closeConnections() method Enter");
             logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
             if (name != null) {
                 names.remove(name);
@@ -195,23 +186,13 @@ public class Server {
                 users.remove(user);
                 logger.info("User object: " + user + " has been removed!");
             }
-            if (output != null) {
-                writers.remove(output);
-                logger.info("Writer: " + output + " has been removed!");
-                try {
-                    output.close();
-                    logger.info("Closed a connection!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
             try {
                 removeFromList(name);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
-            logger.info("closeConnections() method Exit");
+            logger.debug("closeConnections() method Exit");
         }
     }
 }
