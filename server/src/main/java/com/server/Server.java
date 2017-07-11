@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,6 +46,10 @@ public class Server {
         private Socket socket;
         private Logger logger = LoggerFactory.getLogger(Handler.class);
         private User user;
+        private ObjectInputStream input;
+        private OutputStream os;
+        private ObjectOutputStream output;
+        private InputStream is;
 
         public Handler(Socket socket) throws IOException {
             this.socket = socket;
@@ -52,12 +57,11 @@ public class Server {
 
         public void run() {
             logger.info("Attempting to connect a user...");
-            try (
-                InputStream is = socket.getInputStream();
-                ObjectInputStream input = new ObjectInputStream(is);
-                OutputStream os = socket.getOutputStream();
-                ObjectOutputStream output = new ObjectOutputStream(os)
-            ){
+            try {
+                is = socket.getInputStream();
+                input = new ObjectInputStream(is);
+                os = socket.getOutputStream();
+                output = new ObjectOutputStream(os);
 
                 Message firstMessage = (Message) input.readObject();
                 checkDuplicateUsername(firstMessage);
@@ -85,8 +89,12 @@ public class Server {
                         }
                     }
                 }
-            } catch (IOException | DuplicateUsernameException | ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (SocketException socketException) {
+                logger.error("Socket Exception for user " + name);
+            } catch (DuplicateUsernameException duplicateException){
+                logger.error("Duplicate Username : " + name);
+            } catch (Exception e){
+                logger.error("Exception in run() method for user: " + name, e);
             } finally {
                 closeConnections();
             }
@@ -174,7 +182,7 @@ public class Server {
         /*
          * Once a user has been disconnected, we close the open connections and remove the writers
          */
-        private synchronized void closeConnections() {
+        private synchronized void closeConnections()  {
             logger.debug("closeConnections() method Enter");
             logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
             if (name != null) {
@@ -184,6 +192,31 @@ public class Server {
             if (user != null){
                 users.remove(user);
                 logger.info("User object: " + user + " has been removed!");
+            }
+            if (output != null){
+                writers.remove(output);
+                logger.info("Writer object: " + user + " has been removed!");
+            }
+            if (is != null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (os != null){
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (input != null){
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             try {
                 removeFromList();
