@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac" />
-    <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
       <entry name="!?*.form" />
@@ -14,28 +12,18 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-      <profile default="false" name="Annotation profile for server" enabled="true">
+      <profile name="Annotation profile for Server" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-      </profile>
-      <profile default="false" name="Annotation profile for Server" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="Server" />
       </profile>
-      <profile default="false" name="Annotation profile for client" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="client" />
+        <module name="server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

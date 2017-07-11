@@ -68,7 +68,7 @@ public class Server {
                 while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
-                        logger.info(inputmsg.getName() + " has " + names.size());
+                        logger.info(inputmsg.getType() + " - " + inputmsg.getName() + ": " + inputmsg.getMsg());
                         switch (inputmsg.getType()) {
                             case USER:
                                 write(inputmsg);
@@ -166,13 +166,8 @@ public class Server {
                 msg.setUserlist(names);
                 msg.setUsers(users);
                 msg.setOnlineCount(names.size());
-                logger.info(writer.toString() + " " + msg.getName() + " " + msg.getUserlist().toString());
-                try {
-                    writer.writeObject(msg);
-                    writer.reset();
-                } catch (Exception ex) {
-                    closeConnections();
-                }
+                writer.writeObject(msg);
+                writer.reset();
             }
         }
 
