@@ -169,7 +169,7 @@ public class ChatController implements Initializable {
     }
 
     public void setImageLabel() throws IOException {
-        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString()));
+        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/dominic.png").toString()));
     }
 
     public void setOnlineLabel(String usercount) {
@@ -297,7 +297,7 @@ public class ChatController implements Initializable {
     public void setImageLabel(String selectedPicture) {
         switch (selectedPicture) {
             case "Dominic":
-                this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/Dominic.png").toString()));
+                this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/dominic.png").toString()));
                 break;
             case "Sarah":
                 this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/sarah.png").toString()));

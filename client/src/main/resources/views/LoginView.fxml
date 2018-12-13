@@ -51,7 +51,7 @@
                   </ImageView>
                   <ImageView fx:id="Dominicview" fitHeight="93.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image preserveRatio="false" smooth="true" url="@../images/Dominic.png" />
+                        <Image preserveRatio="false" smooth="true" url="@../images/dominic.png" />
                      </image>
                   </ImageView>
                </children>
