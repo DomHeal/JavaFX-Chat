@@ -171,11 +171,15 @@ public class Server {
          */
         private void write(Message msg) throws IOException {
             for (ObjectOutputStream writer : writers) {
-                msg.setUserlist(names);
-                msg.setUsers(users);
-                msg.setOnlineCount(names.size());
-                writer.writeObject(msg);
-                writer.reset();
+                try {
+                    msg.setUserlist(names);
+                    msg.setUsers(users);
+                    msg.setOnlineCount(names.size());
+                    writer.writeObject(msg);
+                    writer.reset();
+                } finally {
+                    writer.close();
+                }
             }
         }
 
