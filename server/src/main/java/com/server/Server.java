@@ -28,10 +28,9 @@ public class Server {
     public static void main(String[] args) throws Exception {
         logger.info("The chat server is running.");
         ServerSocket listener = new ServerSocket(PORT);
-
-        try {
+        try(Socket s = listener.accept()){
             while (true) {
-                new Handler(listener.accept()).start();
+                new Handler(s).start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +50,7 @@ public class Server {
         private ObjectOutputStream output;
         private InputStream is;
 
-        public Handler(Socket socket) throws IOException {
+        public Handler( Socket socket) throws IOException {
             this.socket = socket;
         }
 
