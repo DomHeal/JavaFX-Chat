@@ -50,7 +50,7 @@ public class Server {
         private ObjectOutputStream output;
         private InputStream is;
 
-        public Handler( Socket socket) throws IOException {
+        public Handler(Socket socket) throws IOException {
             this.socket = socket;
         }
 
